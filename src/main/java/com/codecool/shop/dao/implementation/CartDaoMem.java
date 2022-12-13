@@ -8,10 +8,10 @@ import java.util.List;
 
 public class CartDaoMem implements CartDao {
 
-    private List<Product> inTheCart = new ArrayList<>();
+    private List<Product> cartContent = new ArrayList<>();
     private static CartDaoMem instance = null;
 
-    private static CartDaoMem getInstance() {
+    public static CartDaoMem getInstance() {
         if (instance == null) {
             instance = new CartDaoMem();
         }
@@ -20,16 +20,16 @@ public class CartDaoMem implements CartDao {
 
     @Override
     public void add(Product product) {
-        inTheCart.add(product);
+        cartContent.add(product);
     }
 
     @Override
     public void remove(Product product) {
-        inTheCart.remove(product);
+        cartContent.remove(product);
     }
 
     @Override
     public List<Product> getAll() {
-        return inTheCart;
+        return cartContent;
     }
 }
