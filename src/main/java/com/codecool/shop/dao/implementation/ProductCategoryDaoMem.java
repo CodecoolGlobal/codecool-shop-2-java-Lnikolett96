@@ -7,6 +7,7 @@ import com.codecool.shop.model.ProductCategory;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ProductCategoryDaoMem implements ProductCategoryDao {
 
     private List<ProductCategory> data = new ArrayList<>();
