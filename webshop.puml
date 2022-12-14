@@ -1,0 +1,27 @@
+@startuml
+
+Animal <|-- hehe
+Anyenye *-- hehe
+Mammals <|--hehe
+
+class Animal {
+- Animals: List<Animals>
++ bornRandomAnimal()
+}
+class hehe {
+- Animals: List<Animals>
++ bornRandomAnimal()
+}
+class Anyenye {
+- Animals: List<Animals>
++ bornRandomAnimal()
+}
+
+abstract class Mammals implements use{
+
+}
+
+interface use{
+}
+
+@enduml
