@@ -26,18 +26,23 @@ public class PaymentController extends HttpServlet {
     private CartService cartService = new CartService(CartDaoMem.getInstance(), ProductDaoMem.getInstance());
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
+        WebContext context = new WebContext(request, response, request.getServletContext());
         context.setVariable("products", cartService.getCartProducts());
 
-        engine.process("product/payment.html", context, resp.getWriter());
+        engine.process("product/payment.html", context, response.getWriter());
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int prodId = Integer.parseInt(req.getParameter("prodid"));
-        cartService.productAddToCart(prodId);
+    protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+
+        int zipCode = Integer.parseInt(request.getParameter("zip"));
+        String city = request.getParameter("city");
+        String address = request.getParameter("address");
+        String phone = request.getParameter("phone");
+        String payment_method = request.getParameter("payment_method");
+        String credit_card_number = request.getParameter("credit_card_number");
     }
 }
