@@ -29,12 +29,18 @@
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
     <script src="/static/js/index.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <script src="/static/js/cart.js" defer></script>
 </head>
 
 <body>
 
 <div class="jumbotron text-center">
-    <h1>My Little Monster Shop</h1>
+    <h1>My Little Monsters</h1>
+</div>
+
+<div class="card-text">
+    <a class="btn" href="/cart-content">Cart</a>
 </div>
 
 <div class="category-chooser container">
@@ -70,14 +76,13 @@
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                         </div>
                         <div class="card-text">
-                            <a class="btn btn-success" href="#">Add to cart</a>
+                            <button class="btn btn-success" th:data-prod-id="${prod.getId()}">Add to cart</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-    </div>
 </div>
 
 <div class="footer" th:replace="footer.html :: copy"></div>

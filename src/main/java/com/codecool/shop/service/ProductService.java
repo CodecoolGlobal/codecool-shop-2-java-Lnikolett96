@@ -1,5 +1,6 @@
 package com.codecool.shop.service;
 
+import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
@@ -27,6 +28,4 @@ public class ProductService{
         var category = productCategoryDao.find(categoryId);
         return productDao.getBy(category);
     }
-
-
 }
