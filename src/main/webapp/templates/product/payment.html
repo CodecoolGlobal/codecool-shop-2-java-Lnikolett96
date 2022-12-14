@@ -5,7 +5,7 @@
     <meta name="author" content="Codecool" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <title>Cart content</title>
+    <title>Payment</title>
 
     <!-- Bootstrap components -->
     <!-- Latest compiled and minified Jquery -->
@@ -33,28 +33,19 @@
     <h1>My Little Monsters</h1>
 </div>
 
-<div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
-    <div class="card" th:data-prod-id="${prod.getId()}">
-        <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
-        <div class="card-header">
-            <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-            <p class="card-text" th:text="${prod.description}">Product description... </p>
-        </div>
-        <div class="card-body">
-            <div class="card-text">
-                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-            </div>
-            <div class="card-text">
-                <button class="btn btn-success" th:data-prod-id="${prod.getId()}">Add to cart</button>
-            </div>
-        </div>
-    </div>
+<div>
+    <table>
+        <tr>
+            <th> Name </th>
+            <th> Quantity </th>
+            <th> Price </th>
+        </tr>
+        <tbody th:each="product,iterStat : ${products}">
+        <td th:text="${product.name}"> product_name </td>
+        <td th:text="${product.getPrice()}"> price </td>
+        </tbody>
+    </table>
 </div>
-
-<div class="card-text">
-    <button> <a href="/payment"> Checkout </a> </button>
-</div>
-
 
 </body>
 </html>
