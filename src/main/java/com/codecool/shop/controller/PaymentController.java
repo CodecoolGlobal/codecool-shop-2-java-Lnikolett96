@@ -44,5 +44,6 @@ public class PaymentController extends HttpServlet {
         String phone = request.getParameter("phone");
         String payment_method = request.getParameter("payment_method");
         String credit_card_number = request.getParameter("credit_card_number");
+        String email = request.getParameter("email");
     }
 }
