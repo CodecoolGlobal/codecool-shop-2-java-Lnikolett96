@@ -9,8 +9,10 @@
 
     <!-- Bootstrap components -->
     <!-- Latest compiled and minified Jquery -->
+<!--
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+-->
 
     <!--Latest compiled and minified Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
@@ -20,6 +22,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
+    <script src="/static/js/payment.js" defer> </script>
+
     <!-- Latest compiled and minified CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -27,39 +31,67 @@
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
 </head>
+
 <body>
 
-<div class="jumbotron text-center">
-    <h1>My Little Monsters</h1>
-</div>
+<form method="post" action="/payment">
+    <div class="jumbotron text-center">
+        <h1>My Little Monsters</h1>
+    </div>
 
-<div>
-    <table>
-        <tr>
-            <th> Name </th>
-            <th> Quantity </th>
-            <th> Price </th>
-        </tr>
-        <tbody th:each="product,iterStat : ${products}">
-        <td th:text="${product.name}"> product_name </td>
-        <td th:text="${product.getPrice()}"> price </td>
-        </tbody>
-    </table>
-</div>
+    <div>
+        <h5> Ordered items:</h5> <br>
+        <table>
+            <tr>
+                <th> Name </th>
+                <th> Quantity </th>
+                <th> Price </th>
+            </tr>
+            <tbody th:each="product,iterStat : ${products}">
+            <td th:text="${product.name}"> product_name </td>
+            <td th:text="${product.getPrice()}"> price </td>
+            </tbody>
+        </table>
+    </div>
 
-<br>
+    <br>
 
-<div>
-    <h5>Destination address:<h5>
-        <label for="zip"> Zip code: </label>
-        <input type="number" id="zip">
-        <label for="city"> City: </label>
-        <input type="text" id="city">
-        <label for="address"> Address: </label>
-        <input type="text" id="address"> <br>
-        <label>Phone: </label>
-        <input type="tel" id="phone"> <br>
-</div>
+    <div id="shipping_address">
+        <h5>Shipping address:<h5>
+            <label for="zip"> Zip code: </label>
+            <input required type="number" id="zip" name="zip">
+
+            <label for="city"> City: </label>
+            <input required type="text" id="city" name="city">
+
+            <label for="address"> Address: </label>
+            <input required type="text" id="address" name="address"> <br>
+
+            <label>Phone: </label>
+            <input required type="tel" id="phone" name="phone"> <br>
+    </div>
+
+    <br>
+
+    <img src="/static/img/usd.jpg" width="50px">
+    <label for="cash">By cash on delivery:</label>
+    <input type="radio" name="payment_method" value="cash" id="cash" checked class="other_radio_button"> <br> <br>
+
+    <img src="/static/img/credit_card.webp" width="50px">
+    <label for="cc_radio">Credit card: </label>
+    <input type="radio" name="payment_method" value="credit_card" id="cc_radio">
+    <label class="cc_data" hidden>Credit card number: </label>
+    <input type="text" class="cc_data" hidden name="credit_card_number">  <br> <br>
+
+    <img src="/static/img/paypal.png" width="50px">
+    <label for="paypal">Paypal: </label>
+    <input type="radio" name="payment_method" value="paypal" id="paypal" class="other_radio_button"> <br> <br>
+
+    <br>
+    <button type="submit"> Submit order </button>
+</form>
+
 
 </body>
+
 </html>
