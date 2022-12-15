@@ -1,61 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Codecool" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta charset="utf-8">
+    <meta name="author" content="Codecool">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Payment</title>
 
-    <!-- Bootstrap components -->
-    <!-- Latest compiled and minified Jquery -->
-    <!--
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    -->
-
-    <!--Latest compiled and minified Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
             integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 
-    <!-- Latest compiled and minified JavaScript -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
     <script src="/static/js/payment.js" defer> </script>
 
-    <!-- Latest compiled and minified CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <!-- End of Bootstrap components -->
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/payment_result.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/payment_result.css">
 
 </head>
 
 <body>
-    <div class="jumbotron text-center">
-        <h1>My Little Monsters</h1>
+    <div class="jumbotron text-center main-pic">
+        <img src="/static/img/fejlec_nev.png" alt="">
     </div>
 
-    <div>
-        <h4 th:if="${result.isSuccess()}">Order successfully processed!</h4> <br> <br>
-        <h4 th:unless="${result.isSuccess()}">There was an error during processing your order!</h4>
+    <div style="text-align: center">
+        <h4 class="neonText space" th:if="${result.isSuccess()}">Order successfully processed!</h4> <br> <br>
+        <h4 class="neonText space" th:unless="${result.isSuccess()}">There was an error during processing your order!</h4>
 
-        <h4> Order summary: </h4> <br>
+        <h4 class="neonText"> Order summary: </h4> <br>
         <h5>Postage address: </h5>
+        <h6>Name: </h6> <h6 th:text="${result.getName()}" >text</h6>
         <h6>Zip code: </h6> <h6 th:text="${result.getZipCode()}" >text</h6>
         <h6>City: </h6> <h6 th:text="${result.getCity()}" >text</h6>
         <h6>Address: </h6> <h6 th:text="${result.getAddress()}" >text</h6> <br>
         <h6>Phone: </h6> <h6 th:text="${result.getPhone()}" >text</h6>
         <h6>E-mail address: </h6> <h6 th:text="${result.getEmail()}" >text</h6> <br> <br>
 
-        <h5> Payment data: </h5>
+        <h5 class="neonText space"> Payment data: </h5>
         <h6>Payment method: </h6> <h6 th:text="${result.getPayment_method()}" >text</h6>
         <h6 th:if="${result.getPayment_method() == 'credit_card'}">Card number: </h6>
         <h6 th:if="${result.getPayment_method() == 'credit_card'}" th:text="${result.getCredit_card_number()}" >text</h6>
     </div>
+    <br><br><br><br><br>
+    <div class="footer" th:replace="footer.html :: copy"></div>
 </body>
 
 </html>

@@ -1,1 +1,1 @@
-{"zipCode":5600,"city":"Békéscsaba","address":"Alma 12.","phone":"345678","payment_method":"credit_card","credit_card_number":"4899-1234-5678","email":"mimi@freemail.cz","totalPrice":237.9,"success":true}
+{"name":"wafcds","zipCode":1001,"city":"wdqdw","address":"21021d","phone":"102202020","payment_method":"credit_card","credit_card_number":"2131313132","email":"efewf@grf.hu","totalPrice":237.9,"success":true}
