@@ -50,21 +50,7 @@ public class PaymentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        int zipCode = Integer.parseInt(request.getParameter("zip"));
-        String city = request.getParameter("city");
-        String address = request.getParameter("address");
-        String phone = request.getParameter("phone");
-        String payment_method = request.getParameter("payment_method");
-        String credit_card_number = request.getParameter("credit_card_number");
-        String email = request.getParameter("email");
-        boolean success = true;
-
-        BigDecimal totalPrice = BigDecimal.ZERO;
-        for (Product product: cartService.getCartProducts().keySet()) {
-            totalPrice = totalPrice.add(product.getDefaultPrice().multiply(BigDecimal.valueOf(cartService.getCartProducts().get(product))));
-        }
-
-        paymentResult = new PaymentResult(zipCode, city, address, phone, payment_method, credit_card_number, email, totalPrice, success);
+        PaymentResult paymentResult = getPaymentResult(request);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
         WebContext context = new WebContext(request, response, request.getServletContext());
@@ -79,5 +65,23 @@ public class PaymentController extends HttpServlet {
         file.close();
 
         engine.process("product/payment_result.html", context, response.getWriter());
+    }
+
+    private PaymentResult getPaymentResult(HttpServletRequest request) {
+        int zipCode = Integer.parseInt(request.getParameter("zip"));
+        String city = request.getParameter("city");
+        String address = request.getParameter("address");
+        String phone = request.getParameter("phone");
+        String payment_method = request.getParameter("payment_method");
+        String credit_card_number = request.getParameter("credit_card_number");
+        String email = request.getParameter("email");
+        boolean success = true;
+
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        for (Product product: cartService.getCartProducts().keySet()) {
+            totalPrice = totalPrice.add(product.getDefaultPrice().multiply(BigDecimal.valueOf(cartService.getCartProducts().get(product))));
+        }
+
+        return new PaymentResult(zipCode, city, address, phone, payment_method, credit_card_number, email, totalPrice, success);
     }
 }
