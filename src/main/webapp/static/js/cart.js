@@ -12,12 +12,23 @@ function addProductToCart(addToCartBtns){
     })
 }
 
-function buttonSelector() {
-    return document.querySelectorAll(`.btn.btn-success`)
+function increaseAmount(plusBtns, amount) {
+    plusBtns.forEach((button) => {
+        button.addEventListener('click', async (e) => {
+            const response = await fetch(`/cart-content?prodid=${e.currentTarget.dataset.prodId}`, {
+                method: "POST"
+            })
+        })
+    })
+}
+
+function classSelector(className) {
+    return document.querySelectorAll(className)
 }
 
 function initPage(){
-    addProductToCart(buttonSelector())
+    addProductToCart(classSelector(`.btn.btn-success`))
+    increaseAmount(classSelector(`.btn.btn-primary`), classSelector(`.amount`))
 }
 
 initPage()
