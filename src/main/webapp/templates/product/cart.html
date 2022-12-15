@@ -47,11 +47,11 @@
     <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products.keySet()}">
         <div class="table-tab">
             <tr>
-                <td th:text="${prod.getName()}">Product name</td>
+                <td th:text="${prod.getName()}"></td>
                 <td><img width="60px" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" /></td>
                 <td th:text="${prod.getPrice()}">100 USD</td>
-                <td><button>-</button>
-                <span th:text="${products.get(prod)}" class="amount"></span>
+                <td><button class="btn btn-danger" th:data-prod-id="${prod.getId()}">-</button>
+                <span th:text="${products.get(prod)}" class="amount" th:data-prod-id="${prod.getId()}"></span>
                 <button class="btn btn-primary" th:data-prod-id="${prod.getId()}">+</button></td>
             </tr>
         </div>
