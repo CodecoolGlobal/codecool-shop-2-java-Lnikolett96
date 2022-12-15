@@ -3,6 +3,7 @@ package com.codecool.shop.model;
 import java.math.BigDecimal;
 
 public class PaymentResult {
+    private String name;
     private int zipCode;
     private String city;
     private String address;
@@ -14,7 +15,8 @@ public class PaymentResult {
     private boolean success;
 
 
-    public PaymentResult(int zipCode, String city, String address, String phone, String payment_method, String credit_card_number, String email, BigDecimal totalPrice, boolean success) {
+    public PaymentResult(String name, int zipCode, String city, String address, String phone, String payment_method, String credit_card_number, String email, BigDecimal totalPrice, boolean success) {
+        this.name = name;
         this.zipCode = zipCode;
         this.city = city;
         this.address = address;
@@ -60,5 +62,9 @@ public class PaymentResult {
 
     public BigDecimal getTotalPrice() {
         return totalPrice;
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -68,6 +68,7 @@ public class PaymentController extends HttpServlet {
     }
 
     private PaymentResult getPaymentResult(HttpServletRequest request) {
+        String name = request.getParameter("name");
         int zipCode = Integer.parseInt(request.getParameter("zip"));
         String city = request.getParameter("city");
         String address = request.getParameter("address");
@@ -82,6 +83,6 @@ public class PaymentController extends HttpServlet {
             totalPrice = totalPrice.add(product.getDefaultPrice().multiply(BigDecimal.valueOf(cartService.getCartProducts().get(product))));
         }
 
-        return new PaymentResult(zipCode, city, address, phone, payment_method, credit_card_number, email, totalPrice, success);
+        return new PaymentResult(name, zipCode, city, address, phone, payment_method, credit_card_number, email, totalPrice, success);
     }
 }

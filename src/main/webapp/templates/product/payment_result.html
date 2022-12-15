@@ -32,8 +32,9 @@
         <h4 th:if="${result.isSuccess()}">Order successfully processed!</h4> <br> <br>
         <h4 th:unless="${result.isSuccess()}">There was an error during processing your order!</h4>
 
-        <h4> Order summary: </h4> <br>
+        <h4>Order summary: </h4> <br>
         <h5>Postage address: </h5>
+        <h6>Name: </h6> <h6 th:text="${result.getName()}" >text</h6>
         <h6>Zip code: </h6> <h6 th:text="${result.getZipCode()}" >text</h6>
         <h6>City: </h6> <h6 th:text="${result.getCity()}" >text</h6>
         <h6>Address: </h6> <h6 th:text="${result.getAddress()}" >text</h6> <br>
