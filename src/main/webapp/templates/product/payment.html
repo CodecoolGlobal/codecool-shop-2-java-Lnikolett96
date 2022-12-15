@@ -7,8 +7,6 @@
 
     <title>Payment</title>
 
-
-    <!-- Latest compiled and minified Jquery -->
 <!--
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -90,15 +88,23 @@
         <label for="cash">By cash on delivery:</label>
         <input type="radio" name="payment_method" value="cash" id="cash" checked class="other_radio_button"> <br> <br>
 
-        <img src="/static/img/credit_card.webp" width="50px">
-        <label for="cc_radio">Credit card: </label>
-        <input type="radio" name="payment_method" value="credit_card" id="cc_radio">
-        <label class="cc_data" hidden>Credit card number: </label>
-        <input type="text" class="cc_data" hidden name="credit_card_number"> <br> <br>
-
         <img src="/static/img/paypal.png" width="50px">
         <label for="paypal">Paypal: </label>
         <input type="radio" name="payment_method" value="paypal" id="paypal" class="other_radio_button"> <br> <br>
+
+        <img src="/static/img/credit_card.webp" width="50px">
+        <label for="cc_radio">Credit card: </label>
+        <input type="radio" name="payment_method" value="credit_card" id="cc_radio">
+
+        <label class="cc_data" hidden>Credit card number: </label>
+        <input type="text" class="cc_data" hidden name="credit_card_number" maxlength="14"> <br> <br>
+
+        <label class="cc_data" hidden>Expiry date: </label>
+        <input type="date" class="cc_data" hidden name="credit_card_expiry"> <br> <br>
+
+        <label class="cc_data" hidden>CVV code: </label>
+        <input type="text" class="cc_data" hidden name="credit_card_cvv" maxlength="3"> <br> <br>
+
         <br>
         <button type="submit">Submit order</button>
     </div>
