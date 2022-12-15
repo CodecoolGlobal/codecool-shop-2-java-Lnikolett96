@@ -23,6 +23,10 @@ public class CartService {
         cartDao.add(productDao.find(prodId));
     }
 
+    public void decreaseAmount(int prodId) {
+        cartDao.remove(productDao.find(prodId));
+    }
+
     public Map<Product, Integer> getCartProducts() {
         return cartDao.getAll();
     }
