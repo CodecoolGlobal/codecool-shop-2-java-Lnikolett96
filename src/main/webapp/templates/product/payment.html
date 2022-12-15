@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="author" content="Codecool"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta charset="utf-8">
+    <meta name="author" content="Codecool">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Payment</title>
 
     <!-- Bootstrap components -->
     <!-- Latest compiled and minified Jquery -->
-    <!--
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    -->
+<!--
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+-->
 
     <!--Latest compiled and minified Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
@@ -49,12 +49,18 @@
                 <th class="text-center"> Price</th>
                 <th class="text-center"> Quantity</th>
             </tr>
-            <tbody th:each="product,iterStat : ${products.keySet()}">
-            <td th:text="${product.getName()}" class="text-center"> product_name</td>
-            <td th:text="${product.getPrice()}" class="text-center"> price</td>
-            <td th:text="${products.get(product)}" class="text-center"> price</td>
-            </tbody>
+            <tr th:each="product,iterStat : ${products.keySet()}">
+                <td th:text="${product.getName()}" class="text-center"> product_name </td>
+                <td th:text="${product.getPrice()}" class="text-center"> price </td>
+                <td th:text="${products.get(product)}" class="text-center"> price </td>
+            </tr>
+            <tr>
+                <td class="text-center" style="color: red">Total price: </td>
+                <td th:text="${totalPrice}" class="text-center" style="color: red"> totalPrice </td>>
+                <td></td>>
+            </tr>
         </table>
+
     </div>
 
     <br>
