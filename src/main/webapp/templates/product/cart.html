@@ -33,22 +33,43 @@
     <h1>My Little Monsters</h1>
 </div>
 
-<div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products.keySet()}">
-    <div class="card" th:data-prod-id="${prod.getId()}">
-        <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
-        <div class="card-header">
-            <h4 class="card-title" th:text="${prod.getName()}">Product name</h4>
+<table>
+        <div class="table-header">
+            <tr>
+                <th>Name</th>
+                <th>Img</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
         </div>
-        <div class="card-body">
-            <div class="card-text">
-                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-            </div>
-            <div class="card-text">
-                <button class="btn btn-success" th:data-prod-id="${prod.getId()}">Add to cart</button>
-            </div>
+    <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products.keySet()}">
+        <div class="table-tab">
+            <tr>
+                <td th:text="${prod.getName()}">Product name</td>
+                <td><img width="60px" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" /></td>
+                <td th:text="${prod.getPrice()}">100 USD</td>
+                <td><button>-</button></td>
+                <td th:text="${products.get(prod)}"></td>
+                <td><button>+</button></td>
+            </tr>
         </div>
     </div>
-</div>
+</table>
+<!--    <div class="card" th:data-prod-id="${prod.getId()}">-->
+<!--        <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />-->
+<!--        <div class="card-header">-->
+<!--            <h4 class="card-title" th:text="${prod.getName()}">Product name</h4>-->
+<!--        </div>-->
+<!--        <div class="card-body">-->
+<!--            <div class="card-text">-->
+<!--                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>-->
+<!--                <p class="lead" th:text="${products.get(prod)}"></p>-->
+<!--            </div>-->
+<!--            <div class="card-text">-->
+<!--                <button class="btn btn-success" th:data-prod-id="${prod.getId()}">Add to cart</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
 <div class="card-text">
     <button> <a href="/payment"> Checkout </a> </button>
