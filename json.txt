@@ -1,1 +1,1 @@
-{"zipCode":1020,"city":"fefw","address":"wdqwdq 01","phone":"202020102","payment_method":"cash","credit_card_number":"","email":"01202ds@gkmdw.vom","totalPrice":287,"success":true}
+{"name":"wafcds","zipCode":1001,"city":"wdqdw","address":"21021d","phone":"102202020","payment_method":"credit_card","credit_card_number":"2131313132","email":"efewf@grf.hu","totalPrice":237.9,"success":true}

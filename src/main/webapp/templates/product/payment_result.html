@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Codecool" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta charset="utf-8">
+    <meta name="author" content="Codecool">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Payment</title>
 
@@ -18,8 +18,8 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/payment_result.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/payment_result.css">
 
 </head>
 
@@ -34,6 +34,7 @@
 
         <h4 class="neonText"> Order summary: </h4> <br>
         <h5>Postage address: </h5>
+        <h6>Name: </h6> <h6 th:text="${result.getName()}" >text</h6>
         <h6>Zip code: </h6> <h6 th:text="${result.getZipCode()}" >text</h6>
         <h6>City: </h6> <h6 th:text="${result.getCity()}" >text</h6>
         <h6>Address: </h6> <h6 th:text="${result.getAddress()}" >text</h6> <br>
