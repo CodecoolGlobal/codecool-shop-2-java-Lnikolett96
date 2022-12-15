@@ -1,3 +1,4 @@
+
 function addProductToCart(addToCartBtns){
     addToCartBtns.forEach((button) => {
         button.addEventListener('click', async (e) => {
