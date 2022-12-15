@@ -41,7 +41,8 @@
     <a class="btn" href="/cart-content">Cart</a>
 </div>
 
-
+<h1 class="neonText"> Welcome our Creepy Webshop!</h1>
+<p class="neonText"> ... Be carefull what you would buy ...</p>
 
 <div class="category-chooser container">
 
@@ -65,12 +66,12 @@
     <div id="products-by-category" class="container">
         <th:block th:each="cat,iter : ${categoriesList}">
             <div th:id="${cat.name}" class="row products">
-                <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${category.getProductsForCategory(cat.id)}">
-                    <div class="card">
+                <div class=" col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${category.getProductsForCategory(cat.id)}">
+                    <div class="card neonBox1">
                         <img class="productImg" src="http://placehold.it/400x250/000/fff"
                              th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
                         <div class="card-header">
-                            <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                            <h4 class="card-title card-title1" th:text="${prod.name}">Product name</h4>
                             <p class="card-text" th:text="${prod.description}">Product description... </p>
                         </div>
                         <div class="card-body">
