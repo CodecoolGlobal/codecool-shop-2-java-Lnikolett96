@@ -1,3 +1,20 @@
+body{
+    background: black;
+    background-size: cover;
+}
+.hidden{
+    display: none;
+}
+.products {
+    padding: 20px 20px 50px 20px;
+}
+.separator-line {
+    height: 10px;
+    background: black;
+    background-size: contain;
+    position: absolute;
+    top: 500px;
+}
 .glyphicon {
     margin-right:5px;
 }
@@ -12,6 +29,12 @@
 .thumbnail img
 {
     margin-top: 10px;
+}
+.main-pic {
+    background-image: url("/static/img/fejleckep.jpg");
+    width: 100%;
+    background-size: contain;
+
 }
 .item.list-group-item
 {
@@ -59,4 +82,14 @@
 .list-group-item-text
 {
     margin: 0 0 11px;
+}
+
+.card{
+    min-width: 300px;
+    padding: 30px 30px 30px 30px;
+    margin: 10px;
+}
+
+.white {
+    color: white;
 }

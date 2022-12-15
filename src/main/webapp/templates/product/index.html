@@ -9,8 +9,8 @@
 
     <!-- Bootstrap components -->
     <!-- Latest compiled and minified Jquery -->
-<!--    <script src="https://code.jquery.com/jquery-3.3.1.min.js"-->
-<!--            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <!--Latest compiled and minified Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
@@ -34,25 +34,26 @@
 </head>
 
 <body>
-
-<div class="jumbotron text-center">
-    <h1>My Little Monsters</h1>
+<div class="jumbotron text-center main-pic">
+    <img width="100%" src="/static/img/fejlec_nev.png" alt="My Little Monster Shop">
 </div>
-
 <div class="card-text">
     <a class="btn" href="/cart-content">Cart</a>
 </div>
 
+
+
 <div class="category-chooser container">
 
-    <label>Choose by Category</label>
+    <label class="white">Choose by:</label> <br>
+    <label class="white">category:</label>
     <select id="category-chooser">
         <th:block th:each="cat, iter : ${categoriesList}">
             <option th:value="${cat.name}" th:text="${cat.name}"></option>
         </th:block>
     </select>
 
-    <label>Choose by Supplier</label>
+    <label class="white">Supplier:</label>
     <select id="supplier-chooser">
         <th:block th:each="prod, iter : ${products}">
             <option th:value="${prod.name}" th:text="${prod.supplier.name}"></option>
@@ -62,27 +63,29 @@
 </div>
 <div>
     <div id="products-by-category" class="container">
-        <div th:id="${category.name}" class="row products">
-            <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
-                <div class="card">
-                    <img class="" src="http://placehold.it/400x250/000/fff"
-                         th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
-                    <div class="card-header">
-                        <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                        <p class="card-text" th:text="${prod.description}">Product description... </p>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-text">
-                            <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+        <th:block th:each="cat,iter : ${categoriesList}">
+            <div th:id="${cat.name}" class="row products">
+                <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${category.getProductsForCategory(cat.id)}">
+                    <div class="card">
+                        <img class="productImg" src="http://placehold.it/400x250/000/fff"
+                             th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
+                        <div class="card-header">
+                            <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                            <p class="card-text" th:text="${prod.description}">Product description... </p>
                         </div>
-                        <div class="card-text">
-                            <button class="btn btn-success" th:data-prod-id="${prod.getId()}">Add to cart</button>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                            </div>
+                            <div class="card-text">
+                                <button class="btn btn-success" th:data-prod-id="${prod.getId()}">Add to cart</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+        </th:block>
+    </div>
 </div>
 
 <div class="footer" th:replace="footer.html :: copy"></div>

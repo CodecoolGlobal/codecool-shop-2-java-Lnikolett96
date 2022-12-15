@@ -4,7 +4,10 @@ import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CartService {
 
@@ -20,13 +23,7 @@ public class CartService {
         cartDao.add(productDao.find(prodId));
     }
 
-
-
-
-
-
-    public List<Product> getCartProducts() {
+    public Map<Product, Integer> getCartProducts() {
         return cartDao.getAll();
     }
-
 }

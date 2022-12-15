@@ -28,20 +28,51 @@ public class Initializer implements ServletContextListener {
 //        CartDao cartDatatStore = CartDaoMem.getInstance();
 
         //setting up a new supplier
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        supplierDataStore.add(amazon);
-        Supplier lenovo = new Supplier("Lenovo", "Computers");
-        supplierDataStore.add(lenovo);
+        Supplier Japan = new Supplier("Japan", "The national Yokai trader");
+        supplierDataStore.add(Japan);
+        Supplier DemonTrader = new Supplier("Demon trader co.", "We catch demons for you.");
+        supplierDataStore.add(DemonTrader);
+        Supplier nationalCreatureAgency = new Supplier("National Creature Agency", "We catch famouse creatures and breed them.");
+        supplierDataStore.add(nationalCreatureAgency);
 
         //setting up a new product category
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        productCategoryDataStore.add(tablet);
-        ProductCategory telefon = new ProductCategory("Telefon", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        productCategoryDataStore.add(telefon);
+        ProductCategory Japanese_demons = new ProductCategory("Japanese Demons", "Demon", "Demons from Japanese culture");
+        productCategoryDataStore.add(Japanese_demons);
+        ProductCategory Cursed_item = new ProductCategory("Cursed item", "Cursed item with a demon inside", "Haunting cursed items");
+        productCategoryDataStore.add(Cursed_item);
+        ProductCategory legendaryCreatures = new ProductCategory("Legendary Creatures", "Badass creatures", "These creatures need big habitat and hard self-control");
+        productCategoryDataStore.add(legendaryCreatures);
 
         //setting up products and printing it
-        productDataStore.add(new Product("Amazon Fire", new BigDecimal("49.9"), "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
-        productDataStore.add(new Product("Lenovo IdeaPad Miix 700", new BigDecimal("479"), "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
-        productDataStore.add(new Product("Amazon Fire HD 8", new BigDecimal("89"), "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
+        productDataStore.add(new Product("Aka - Shita", new BigDecimal("49.9"), "USD", "Aka shita is a mysterious spirit which takes the form of a dark cloud with sharp claws, and a hairy, bestial face. The aka shita appears during the summer months, when rain and water are at their highest demand to ensure a successful growing season. They are agents of retribution, primarily known as punishers in water disputes.Some clever water thieves are never caught, and may think they ve gotten away with their crime. So this is a Japanese Storm demon. ", Japanese_demons, Japan));
+        productDataStore.add(new Product("AnnaBelle", new BigDecimal("47.9"), "USD", "Annabelle is an allegedly haunted Raggedy Ann doll, housed in the (now closed) occult museum of the paranormal investigators Ed and Lorraine Warren. Annabelle was moved there after supposed hauntings in 1970. A character based on the doll is one of the antagonists that appear in the Conjuring Universe.", Cursed_item, DemonTrader));
+        productDataStore.add(new Product("Kitsune", new BigDecimal("89"), "USD", "According to yōkai folklore, all foxes have the ability to shapeshift into human form. While some folktales speak of kitsune employing this ability to trick others—as foxes in folklore often do—other stories portray them as faithful guardians, friends, and lovers.", Japanese_demons, Japan));
+        productDataStore.add(new Product("Jorogumo", new BigDecimal("99"), "USD", "It can shapeshift into a beautiful woman, so the kanji that represent its actual meaning are 女郎蜘蛛 (lit. 'woman-spider'); the kanji which are used to write it instead, 絡新婦 (lit. 'entangling newlywed woman') have a jukujikun pronunciation that is related to the meaning, but not the sound of the word. In Toriyama Sekien's Gazu Hyakki Yagyō, it is depicted as a spider woman manipulating small fire-breathing spiders.", Japanese_demons, Japan));
+        productDataStore.add(new Product("Cursed Mirror", new BigDecimal("99"), "USD", "Myrtles Plantation in Louisiana, USA is said to be one of the most haunted places in the world. However, the most spooky item in the house is a mirror. Locals claim that the mirror is cursed and has the spirits of Sara Woodruff and her two children who were poisoned by their slave Chloe trapped inside it.     ", Cursed_item, DemonTrader));
+        productDataStore.add(new Product("The anguished man painting", new BigDecimal("99"), "USD", "The Anguished Man is a painting created by an unknown artist.[1][2] Owner Sean Robinson claims to have inherited the painting from his grandmother, who told him that the artist who created the painting had mixed his own blood into the paint and committed suicide soon after finishing the work.The painting has been characterized as being supposedly haunted. ", Cursed_item, DemonTrader));
+        productDataStore.add(new Product("Fenrir", new BigDecimal("120"), "USD", "In the Prose Edda, additional information is given about Fenrir, including that, due to the gods' knowledge of prophecies foretelling great trouble from Fenrir and his rapid growth, the gods bound him and as a result Fenrir bit off the right hand of the god Týr. Depictions of Fenrir have been identified on various objects and scholarly theories have been proposed regarding Fenrir's relation to other canine beings in Norse mythology. Fenrir has been the subject of artistic depictions and he appears in literature.", legendaryCreatures, nationalCreatureAgency));
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
