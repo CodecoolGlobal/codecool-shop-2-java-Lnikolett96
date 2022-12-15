@@ -26,6 +26,8 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <script src="/static/js/cart.js" defer></script>
+
 </head>
 <body>
 
@@ -50,7 +52,7 @@
                 <td th:text="${prod.getPrice()}">100 USD</td>
                 <td><button>-</button></td>
                 <td th:text="${products.get(prod)}"></td>
-                <td><button>+</button></td>
+                <td><button class="btn btn-primary">+</button></td>
             </tr>
         </div>
     </div>
