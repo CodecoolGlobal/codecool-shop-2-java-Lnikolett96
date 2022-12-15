@@ -47,18 +47,24 @@
                 <th class="text-center"> Price</th>
                 <th class="text-center"> Quantity </th>
             </tr>
-            <tbody th:each="product,iterStat : ${products.keySet()}">
-            <td th:text="${product.getName()}" class="text-center"> product_name </td>
-            <td th:text="${product.getPrice()}" class="text-center"> price </td>
-            <td th:text="${products.get(product)}" class="text-center"> price </td>
-            </tbody>
+            <tr th:each="product,iterStat : ${products.keySet()}">
+                <td th:text="${product.getName()}" class="text-center"> product_name </td>
+                <td th:text="${product.getPrice()}" class="text-center"> price </td>
+                <td th:text="${products.get(product)}" class="text-center"> price </td>
+            </tr>
+            <tr>
+                <td class="text-center" style="color: red">Total price: </td>
+                <td th:text="${totalPrice}" class="text-center" style="color: red"> totalPrice </td>>
+                <td></td>>
+            </tr>
         </table>
+
     </div>
 
     <br>
 
     <div id="shipping_address">
-        <h5>Shipping address:<h5>
+        <h5>Shipping address:</h5>
             <label for="zip"> Zip code: </label>
             <input required type="number" id="zip" name="zip">
 

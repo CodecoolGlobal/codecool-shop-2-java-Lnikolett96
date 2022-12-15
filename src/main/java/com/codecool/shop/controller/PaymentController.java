@@ -6,6 +6,8 @@ import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.PaymentResult;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.service.CartService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -14,6 +16,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -33,6 +37,13 @@ public class PaymentController extends HttpServlet {
         WebContext context = new WebContext(request, response, request.getServletContext());
         context.setVariable("products", cartService.getCartProducts());
 
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        for (Product product: cartService.getCartProducts().keySet()) {
+            totalPrice = totalPrice.add(product.getDefaultPrice().multiply(BigDecimal.valueOf(cartService.getCartProducts().get(product))));
+        }
+
+        context.setVariable("totalPrice", totalPrice);
+
         engine.process("product/payment.html", context, response.getWriter());
     }
 
@@ -46,14 +57,26 @@ public class PaymentController extends HttpServlet {
         String payment_method = request.getParameter("payment_method");
         String credit_card_number = request.getParameter("credit_card_number");
         String email = request.getParameter("email");
-        BigDecimal totalPrice = BigDecimal.ZERO;
         boolean success = true;
+
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        for (Product product: cartService.getCartProducts().keySet()) {
+            totalPrice = totalPrice.add(product.getDefaultPrice().multiply(BigDecimal.valueOf(cartService.getCartProducts().get(product))));
+        }
 
         paymentResult = new PaymentResult(zipCode, city, address, phone, payment_method, credit_card_number, email, totalPrice, success);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
         WebContext context = new WebContext(request, response, request.getServletContext());
         context.setVariable("result", paymentResult);
+
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        String jsonString = gson.toJson(paymentResult);
+
+        FileWriter file = new FileWriter("json.txt");
+        file.write(jsonString);
+        file.close();
 
         engine.process("product/payment_result.html", context, response.getWriter());
     }
