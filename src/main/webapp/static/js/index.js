@@ -9,13 +9,20 @@ categoryOptions.addEventListener('click', function(){
 function hideOtherItems(category){
     let allproducts = document.querySelectorAll('.products');
     for (let i = 0; i < allproducts.length; i++) {
-        if (allproducts[i].id != category) {
-
-            allproducts[i].style.display = "none";
-            allproducts[i].classList.add("hidden");
-        } else {
-            allproducts[i].classList.remove("hidden");
+        if(category === "all"){
             allproducts[i].style.display = "";
+            allproducts[i].classList.remove("hidden");
+        } else {
+            if (allproducts[i].id != category) {
+
+                allproducts[i].style.display = "none";
+                allproducts[i].classList.add("hidden");
+            } else {
+                allproducts[i].classList.remove("hidden");
+                allproducts[i].style.display = "";
+            }
+
         }
+
     }
 }
