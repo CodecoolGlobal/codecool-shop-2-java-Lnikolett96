@@ -61,5 +61,4 @@ public class PaymentResult {
     public BigDecimal getTotalPrice() {
         return totalPrice;
     }
-
 }
