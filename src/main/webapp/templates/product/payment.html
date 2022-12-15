@@ -44,12 +44,13 @@
         <table>
             <tr>
                 <th> Name </th>
+                <th> Price</th>
                 <th> Quantity </th>
-                <th> Price </th>
             </tr>
-            <tbody th:each="product,iterStat : ${products}">
-            <td th:text="${product.name}"> product_name </td>
+            <tbody th:each="product,iterStat : ${products.keySet()}">
+            <td th:text="${product.getName()}"> product_name </td>
             <td th:text="${product.getPrice()}"> price </td>
+            <td th:text="${products.get(product)}"> price </td>
             </tbody>
         </table>
     </div>
