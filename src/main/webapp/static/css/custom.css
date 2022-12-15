@@ -86,7 +86,7 @@ body{
 
 .card{
     min-width: 300px;
-    padding: 30px 60px 30px 60px;
+    padding: 30px 30px 30px 30px;
     margin: 10px;
 }
 
@@ -102,6 +102,26 @@ body{
 }
 
 .white {
+    color: white;
+}
+
+h4 {
+    color: white;
+}
+
+h5 {
+    color: white;
+}
+
+h6{
+    color: white;
+}
+
+table {
+    color: white;
+}
+
+label {
     color: white;
 }
 
