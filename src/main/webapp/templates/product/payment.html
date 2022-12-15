@@ -41,16 +41,16 @@
 
     <div>
         <h5> Ordered items:</h5> <br>
-        <table>
+        <table class="table table-dark">
             <tr>
-                <th> Name </th>
-                <th> Price</th>
-                <th> Quantity </th>
+                <th class="text-center"> Name </th>
+                <th class="text-center"> Price</th>
+                <th class="text-center"> Quantity </th>
             </tr>
             <tbody th:each="product,iterStat : ${products.keySet()}">
-            <td th:text="${product.getName()}"> product_name </td>
-            <td th:text="${product.getPrice()}"> price </td>
-            <td th:text="${products.get(product)}"> price </td>
+            <td th:text="${product.getName()}" class="text-center"> product_name </td>
+            <td th:text="${product.getPrice()}" class="text-center"> price </td>
+            <td th:text="${products.get(product)}" class="text-center"> price </td>
             </tbody>
         </table>
     </div>

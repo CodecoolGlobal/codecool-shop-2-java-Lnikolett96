@@ -4,7 +4,6 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.implementation.CartDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.PaymentResult;
-import com.codecool.shop.model.CartItem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.service.CartService;
 import org.thymeleaf.TemplateEngine;
@@ -29,13 +28,6 @@ public class PaymentController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        List<CartItem> cartItems = new ArrayList<>();
-
-        for (Product product : cartService.getCartProducts().keySet()) {
-            CartItem item = new CartItem(product.getName(), product.getDefaultPrice(), product.getDefaultCurrency(), cartService.getCartProducts().get(product));
-            cartItems.add(item);
-        }
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
         WebContext context = new WebContext(request, response, request.getServletContext());
