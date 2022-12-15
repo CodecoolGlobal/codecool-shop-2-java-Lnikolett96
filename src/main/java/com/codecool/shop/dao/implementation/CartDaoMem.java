@@ -27,7 +27,7 @@ public class CartDaoMem implements CartDao {
     public void remove(Product product) {
         cartContent.forEach((key, value) ->{
             if (product.getName().equals(key.getName()) && value != 0) {
-                cartContent.merge(key, 1, Integer::sum);
+                cartContent.replace(key, value - 1);
             } else {
                 cartContent.remove(product);
             }
