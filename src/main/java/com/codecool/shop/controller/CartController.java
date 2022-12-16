@@ -37,8 +37,12 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String whichMethod = req.getParameter("method");
         int prodId = Integer.parseInt(req.getParameter("prodid"));
-        cartService.productAddToCart(prodId);
-
+        if (whichMethod.equals("add")) {
+            cartService.productAddToCart(prodId);
+        } else {
+            cartService.decreaseAmount(prodId);
+        }
     }
 }

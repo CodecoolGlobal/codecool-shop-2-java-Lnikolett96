@@ -20,8 +20,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @WebServlet(urlPatterns = {"/payment"})
 public class PaymentController extends HttpServlet {
@@ -60,7 +62,7 @@ public class PaymentController extends HttpServlet {
         Gson gson = builder.create();
         String jsonString = gson.toJson(paymentResult);
 
-        FileWriter file = new FileWriter("json.txt");
+        FileWriter file = new FileWriter(paymentResult.getId().toString() + " " + LocalDate.now().toString() + ".txt");
         file.write(jsonString);
         file.close();
 
@@ -68,6 +70,7 @@ public class PaymentController extends HttpServlet {
     }
 
     private PaymentResult getPaymentResult(HttpServletRequest request) {
+        UUID id = UUID.randomUUID();
         String name = request.getParameter("name");
         int zipCode = Integer.parseInt(request.getParameter("zip"));
         String city = request.getParameter("city");
@@ -75,6 +78,8 @@ public class PaymentController extends HttpServlet {
         String phone = request.getParameter("phone");
         String payment_method = request.getParameter("payment_method");
         String credit_card_number = request.getParameter("credit_card_number");
+        String credit_card_expiry = request.getParameter("credit_card_expiry");
+        String credit_card_cvv = request.getParameter("credit_card_cvv");
         String email = request.getParameter("email");
         boolean success = true;
 
@@ -83,6 +88,6 @@ public class PaymentController extends HttpServlet {
             totalPrice = totalPrice.add(product.getDefaultPrice().multiply(BigDecimal.valueOf(cartService.getCartProducts().get(product))));
         }
 
-        return new PaymentResult(name, zipCode, city, address, phone, payment_method, credit_card_number, email, totalPrice, success);
+        return new PaymentResult(id, name, zipCode, city, address, phone, payment_method, credit_card_number, credit_card_expiry, credit_card_cvv, email, totalPrice, success);
     }
 }

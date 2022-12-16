@@ -25,13 +25,12 @@ public class CartDaoMem implements CartDao {
 
     @Override
     public void remove(Product product) {
-        cartContent.forEach((key, value) ->{
-            if (product.getName().equals(key.getName()) && value != 0) {
-                cartContent.replace(key, value - 1);
-            } else {
-                cartContent.remove(product);
-            }
-        });
+        int amount = cartContent.get(product);
+        if (amount == 1) {
+            cartContent.remove(product);
+        } else {
+            cartContent.put(product, amount - 1);
+        }
     }
 
     @Override
