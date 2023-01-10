@@ -15,12 +15,12 @@ public class ProductDaoJDBC implements ProductDao {
     private DataSource dataSource;
 
 
-    private ProductDaoJDBC() {
-        dataSource = new SQLDataConnection().connect("MonsterWebshop", "mimi", "vmimif");
+    private ProductDaoJDBC(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
-    public static ProductDaoJDBC getInstance(){
-        if (instance == null) instance = new ProductDaoJDBC();
+    public static ProductDaoJDBC getInstance(DataSource dataSource){
+        if (instance == null) instance = new ProductDaoJDBC(dataSource);
         return instance;
     }
 
