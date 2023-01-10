@@ -1,0 +1,1 @@
+{"id":"e8ba6660-269b-41ba-95f1-4968bbcac15f","name":"Kadar Janos","zipCode":5600,"city":"Sztalinvaros","address":"Alma 12.","phone":"345678","payment_method":"credit_card","credit_card_number":"4899-1234-5678","credit_card_expiry":"2022-12-15","credit_card_cvc":"426","email":"janos.kadar@mszmp.hu","totalPrice":99.8,"success":true}
