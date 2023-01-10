@@ -4,6 +4,7 @@ CREATE TABLE products (
     price NUMERIC,
     category_id INTEGER,
     supplier_id INTEGER,
+    currency VARCHAR,
     image_file_name VARCHAR
 );
 
