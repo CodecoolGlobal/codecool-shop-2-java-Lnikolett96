@@ -77,5 +77,16 @@ public class ProductDaoJDBC implements ProductDao {
 
         return new Product(name, defaultPrice, currencyString, description, productCategory, supplier, imageFileName);
     }
-    
+
+    @Override
+    public void remove(int id) throws SQLException {
+        Connection sqlConnection = dataSource.getConnection();
+
+        String query = "DELETE FROM products WHERE id=?;";
+
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        statement.setInt(1, id);
+
+        statement.executeUpdate();
+    }
 }
