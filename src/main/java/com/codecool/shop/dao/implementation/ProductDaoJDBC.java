@@ -61,22 +61,7 @@ public class ProductDaoJDBC implements ProductDao {
         ResultSet queryResult = sqlStatement.executeQuery();
         queryResult.next();
 
-        String name = queryResult.getString("p.name");
-        BigDecimal defaultPrice = BigDecimal.valueOf(queryResult.getDouble("price"));
-        String currencyString = queryResult.getString("currency");
-        String description = queryResult.getString("p.description");
-        String imageFileName = queryResult.getString("image_file_name");
-
-        String categoryName = queryResult.getString("pc.name");
-        String categoryDescription = queryResult.getString("pc.description");
-        String categoryDepartment = queryResult.getString("department");
-        ProductCategory productCategory = new ProductCategory(categoryName, categoryDepartment, categoryDescription);
-
-        String supplierName = queryResult.getString("s.name");
-        String supplierDescription = queryResult.getString("s.description");
-        Supplier supplier = new Supplier(supplierName, supplierDescription);
-
-        return new Product(name, defaultPrice, currencyString, description, productCategory, supplier, imageFileName);
+        return buildProduct(queryResult);
     }
 
     @Override
@@ -149,24 +134,28 @@ public class ProductDaoJDBC implements ProductDao {
         List<Product> result = new ArrayList<>();
 
         while (queryResult.next()) {
-            String name = queryResult.getString("p.name");
-            BigDecimal defaultPrice = BigDecimal.valueOf(queryResult.getDouble("price"));
-            String currencyString = queryResult.getString("currency");
-            String description = queryResult.getString("p.description");
-            String imageFileName = queryResult.getString("image_file_name");
-
-            String categoryName = queryResult.getString("pc.name");
-            String categoryDescription = queryResult.getString("pc.description");
-            String categoryDepartment = queryResult.getString("department");
-            ProductCategory productCategoryTemp = new ProductCategory(categoryName, categoryDepartment, categoryDescription);
-
-            String supplierName = queryResult.getString("s.name");
-            String supplierDescription = queryResult.getString("s.description");
-            Supplier supplierTemp = new Supplier(supplierName, supplierDescription);
-            Product product = new Product(name, defaultPrice, currencyString, description, productCategoryTemp, supplierTemp, imageFileName);
-
+            Product product = buildProduct(queryResult);
             result.add(product);
         }
         return result;
+    }
+
+    private static Product buildProduct(ResultSet queryResult) throws SQLException {
+        String name = queryResult.getString("p.name");
+        BigDecimal defaultPrice = BigDecimal.valueOf(queryResult.getDouble("price"));
+        String currencyString = queryResult.getString("currency");
+        String description = queryResult.getString("p.description");
+        String imageFileName = queryResult.getString("image_file_name");
+
+        String categoryName = queryResult.getString("pc.name");
+        String categoryDescription = queryResult.getString("pc.description");
+        String categoryDepartment = queryResult.getString("department");
+        ProductCategory productCategory = new ProductCategory(categoryName, categoryDepartment, categoryDescription);
+
+        String supplierName = queryResult.getString("s.name");
+        String supplierDescription = queryResult.getString("s.description");
+        Supplier supplier = new Supplier(supplierName, supplierDescription);
+
+        return new Product(name, defaultPrice, currencyString, description, productCategory, supplier, imageFileName);
     }
 }
