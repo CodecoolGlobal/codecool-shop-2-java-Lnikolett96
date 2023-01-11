@@ -164,7 +164,46 @@ public class ProductDaoJDBC implements ProductDao {
 
             result.add(product);
         }
-        
+
+        return result;
+    }
+
+    @Override
+    public List<Product> getBy(ProductCategory productCategory) throws SQLException {
+        List<Product> result = new ArrayList<>();
+
+        Connection sqlConnection = dataSource.getConnection();
+
+        String query = "SELECT p.id, p.name, p.price, p.category_id, p.supplier_id, p.currency, p.description, p.image_file_name, pc.id, pc.name, pc.department, pc.description, s.name, s.description FROM products p\n" +
+                "    JOIN product_categories pc on pc.id = p.category_id\n" +
+                "    JOIN suppliers s on p.supplier_id = s.id\n" +
+                "    WHERE pc.name ILIKE ?;";
+
+        PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
+        sqlStatement.setString(1, productCategory.getName());
+
+        ResultSet queryResult = sqlStatement.executeQuery();
+
+        while (queryResult.next()) {
+            String name = queryResult.getString("p.name");
+            BigDecimal defaultPrice = BigDecimal.valueOf(queryResult.getDouble("price"));
+            String currencyString = queryResult.getString("currency");
+            String description = queryResult.getString("p.description");
+            String imageFileName = queryResult.getString("image_file_name");
+
+            String categoryName = queryResult.getString("pc.name");
+            String categoryDescription = queryResult.getString("pc.description");
+            String categoryDepartment = queryResult.getString("department");
+            ProductCategory productCategoryTemp = new ProductCategory(categoryName, categoryDepartment, categoryDescription);
+
+            String supplierName = queryResult.getString("s.name");
+            String supplierDescription = queryResult.getString("s.description");
+            Supplier supplierTemp = new Supplier(supplierName, supplierDescription);
+            Product product = new Product(name, defaultPrice, currencyString, description, productCategoryTemp, supplierTemp, imageFileName);
+
+            result.add(product);
+        }
+
         return result;
     }
 }
