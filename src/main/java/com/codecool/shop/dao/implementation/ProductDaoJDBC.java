@@ -1,7 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.connection.SQLDataConnection;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -105,28 +104,7 @@ public class ProductDaoJDBC implements ProductDao {
 
         ResultSet queryResult = sqlStatement.executeQuery();
 
-        while (queryResult.next()) {
-
-            String name = queryResult.getString("p.name");
-            BigDecimal defaultPrice = BigDecimal.valueOf(queryResult.getDouble("price"));
-            String currencyString = queryResult.getString("currency");
-            String description = queryResult.getString("p.description");
-            String imageFileName = queryResult.getString("image_file_name");
-
-            String categoryName = queryResult.getString("pc.name");
-            String categoryDescription = queryResult.getString("pc.description");
-            String categoryDepartment = queryResult.getString("department");
-            ProductCategory productCategory = new ProductCategory(categoryName, categoryDepartment, categoryDescription);
-
-            String supplierName = queryResult.getString("s.name");
-            String supplierDescription = queryResult.getString("s.description");
-            Supplier supplier = new Supplier(supplierName, supplierDescription);
-            Product product = new Product(name, defaultPrice, currencyString, description, productCategory, supplier, imageFileName);
-
-            result.add(product);
-        }
-
-        return result;
+        return queryResultToList(queryResult);
     }
 
     @Override
@@ -145,27 +123,7 @@ public class ProductDaoJDBC implements ProductDao {
 
         ResultSet queryResult = sqlStatement.executeQuery();
 
-        while (queryResult.next()) {
-            String name = queryResult.getString("p.name");
-            BigDecimal defaultPrice = BigDecimal.valueOf(queryResult.getDouble("price"));
-            String currencyString = queryResult.getString("currency");
-            String description = queryResult.getString("p.description");
-            String imageFileName = queryResult.getString("image_file_name");
-
-            String categoryName = queryResult.getString("pc.name");
-            String categoryDescription = queryResult.getString("pc.description");
-            String categoryDepartment = queryResult.getString("department");
-            ProductCategory productCategory = new ProductCategory(categoryName, categoryDepartment, categoryDescription);
-
-            String supplierName = queryResult.getString("s.name");
-            String supplierDescription = queryResult.getString("s.description");
-            Supplier supplierTemp = new Supplier(supplierName, supplierDescription);
-            Product product = new Product(name, defaultPrice, currencyString, description, productCategory, supplierTemp, imageFileName);
-
-            result.add(product);
-        }
-
-        return result;
+        return queryResultToList(queryResult);
     }
 
     @Override
@@ -183,6 +141,12 @@ public class ProductDaoJDBC implements ProductDao {
         sqlStatement.setString(1, productCategory.getName());
 
         ResultSet queryResult = sqlStatement.executeQuery();
+
+        return queryResultToList(queryResult);;ű
+    }
+
+    private static List<Product> queryResultToList (ResultSet queryResult) throws SQLException {
+        List<Product> result = new ArrayList<>();
 
         while (queryResult.next()) {
             String name = queryResult.getString("p.name");
@@ -203,7 +167,6 @@ public class ProductDaoJDBC implements ProductDao {
 
             result.add(product);
         }
-
         return result;
     }
 }
