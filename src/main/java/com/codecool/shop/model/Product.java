@@ -13,12 +13,12 @@ public class Product extends BaseModel {
     private String imageFileName;
 
 
-    public Product(String name, BigDecimal defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier, String imageFile) {
+    public Product(String name, BigDecimal defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier, String imageFileName) {
         super(name, description);
         this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
-        this.imageFileName = imageFile;
+        this.imageFileName = imageFileName;
     }
 
     public BigDecimal getDefaultPrice() {
