@@ -3,10 +3,14 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.connection.SQLDataConnection;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProductDaoJDBC implements ProductDao {
@@ -41,5 +45,37 @@ public class ProductDaoJDBC implements ProductDao {
         statement.executeUpdate();
     }
 
+    @Override
+    public Product find(int id) throws SQLException {
+        Connection sqlConnection = dataSource.getConnection();
 
+        String query = "SELECT p.id, p.name, p.price, p.category_id, p.supplier_id, p.currency, p.description, p.image_file_name, pc.id, pc.name, pc.department, pc.description, s.name, s.description FROM products p\n" +
+                "    JOIN product_categories pc on pc.id = p.category_id\n" +
+                "    JOIN suppliers s on p.supplier_id = s.id                                                                                                                                                        \n" +
+                "    WHERE p.id=1;";
+
+        PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
+        sqlStatement.setInt(1, id);
+
+        ResultSet queryResult = sqlStatement.executeQuery();
+        queryResult.next();
+
+        String name = queryResult.getString("p.name");
+        BigDecimal defaultPrice = BigDecimal.valueOf(queryResult.getDouble("price"));
+        String currencyString = queryResult.getString("currency");
+        String description = queryResult.getString("p.description");
+        String imageFileName = queryResult.getString("image_file_name");
+
+        String categoryName = queryResult.getString("pc.name");
+        String categoryDescription = queryResult.getString("pc.description");
+        String categoryDepartment = queryResult.getString("department");
+        ProductCategory productCategory = new ProductCategory(categoryName, categoryDepartment, categoryDescription);
+
+        String supplierName = queryResult.getString("s.name");
+        String supplierDescription = queryResult.getString("s.description");
+        Supplier supplier = new Supplier(supplierName, supplierDescription);
+
+        return new Product(name, defaultPrice, currencyString, description, productCategory, supplier, imageFileName);
+    }
+    
 }
