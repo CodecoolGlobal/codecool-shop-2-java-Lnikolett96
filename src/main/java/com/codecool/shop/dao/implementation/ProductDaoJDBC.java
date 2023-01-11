@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDaoJDBC implements ProductDao {
 
@@ -88,5 +90,42 @@ public class ProductDaoJDBC implements ProductDao {
         statement.setInt(1, id);
 
         statement.executeUpdate();
+    }
+
+    @Override
+    public List<Product> getAll() throws SQLException {
+        List<Product> result = new ArrayList<>();
+        Connection sqlConnection = dataSource.getConnection();
+
+        String query = "SELECT p.id, p.name, p.price, p.category_id, p.supplier_id, p.currency, p.description, p.image_file_name, pc.id, pc.name, pc.department, pc.description, s.name, s.description FROM products p\n" +
+                "    JOIN product_categories pc on pc.id = p.category_id\n" +
+                "    JOIN suppliers s on p.supplier_id = s.id\n";
+
+        PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
+
+        ResultSet queryResult = sqlStatement.executeQuery();
+
+        while (queryResult.next()) {
+
+            String name = queryResult.getString("p.name");
+            BigDecimal defaultPrice = BigDecimal.valueOf(queryResult.getDouble("price"));
+            String currencyString = queryResult.getString("currency");
+            String description = queryResult.getString("p.description");
+            String imageFileName = queryResult.getString("image_file_name");
+
+            String categoryName = queryResult.getString("pc.name");
+            String categoryDescription = queryResult.getString("pc.description");
+            String categoryDepartment = queryResult.getString("department");
+            ProductCategory productCategory = new ProductCategory(categoryName, categoryDepartment, categoryDescription);
+
+            String supplierName = queryResult.getString("s.name");
+            String supplierDescription = queryResult.getString("s.description");
+            Supplier supplier = new Supplier(supplierName, supplierDescription);
+            Product product = new Product(name, defaultPrice, currencyString, description, productCategory, supplier, imageFileName);
+
+            result.add(product);
+        }
+
+        return result;
     }
 }

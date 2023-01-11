@@ -13,7 +13,7 @@ public interface ProductDao {
     Product find(int id) throws SQLException;
     void remove(int id) throws SQLException;
 
-    List<Product> getAll();
+    List<Product> getAll() throws SQLException;
     List<Product> getBy(Supplier supplier);
     List<Product> getBy(ProductCategory productCategory);
 
