@@ -2,13 +2,9 @@ package com.codecool.shop.dao.implementation.JDBC;
 
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.connection.SQLDataConnection;
-import com.codecool.shop.dao.implementation.mem.ProductCategoryDaoMem;
-import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,77 +25,110 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
         return instance;
     }
 
-    public void add(ProductCategory productCategory) throws SQLException {
-        Connection sqlConnection = dataSource.getConnection();
+    public void add(ProductCategory productCategory){
+        try {
+            Connection sqlConnection = dataSource.getConnection();
 
-        String query = "INSERT INTO product_categories (name, department, description) VALUES (?, ?, ?);";
+            String query = "INSERT INTO product_categories (name, department, description) VALUES (?, ?, ?);";
 
-        PreparedStatement statement = sqlConnection.prepareStatement(query);
-        statement.setString(1, productCategory.getName());
-        statement.setString(2, productCategory.getDepartment());
-        statement.setString(3, productCategory.getDescription());
+            PreparedStatement statement = sqlConnection.prepareStatement(query);
+            statement.setString(1, productCategory.getName());
+            statement.setString(2, productCategory.getDepartment());
+            statement.setString(3, productCategory.getDescription());
 
-        statement.executeUpdate();
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
-    public ProductCategory find(String name) throws SQLException {
-        Connection sqlConnection = dataSource.getConnection();
 
-        String query = "SELECT id, name, department, description FROM product_categories\n" +
-                "WHERE name=?;";
+    public ProductCategory find(String name){
+        try {
+            Connection sqlConnection = dataSource.getConnection();
 
-        PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
-        sqlStatement.setString(1, name);
+            String query = "SELECT id, name, department, description FROM product_categories\n" +
+                    "WHERE name=?;";
 
-        ResultSet queryResult = sqlStatement.executeQuery();
-        queryResult.next();
+            PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
+            sqlStatement.setString(1, name);
 
-        return buildProductCategory(queryResult);
+            ResultSet queryResult = sqlStatement.executeQuery();
+            queryResult.next();
+
+            return buildProductCategory(queryResult);
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     ;
 
-    public void remove(String name) throws SQLException {
-        Connection sqlConnection = dataSource.getConnection();
+    public void remove(String name) {
+        try {
+            Connection sqlConnection = dataSource.getConnection();
 
-        String query = "DELETE FROM product_categories WHERE id=?;";
+            String query = "DELETE FROM product_categories WHERE name=?;";
 
-        PreparedStatement statement = sqlConnection.prepareStatement(query);
-        statement.setString(1, name);
+            PreparedStatement statement = sqlConnection.prepareStatement(query);
+            statement.setString(1, name);
 
-        statement.executeUpdate();
-    }
-
-    public List<ProductCategory> getAll() throws SQLException {
-        List<ProductCategory> result = new ArrayList<>();
-        Connection sqlConnection = dataSource.getConnection();
-
-        String query = "SELECT id, name, department, description FROM product_categories";
-
-        PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
-
-        ResultSet queryResult = sqlStatement.executeQuery();
-
-        return queryResultToList(queryResult);
-    }
-
-    private List<ProductCategory> queryResultToList(ResultSet queryResult) throws SQLException {
-        List<ProductCategory> result = new ArrayList<>();
-
-        while (queryResult.next()) {
-            ProductCategory productCategory = buildProductCategory(queryResult);
-            result.add(productCategory);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
-        return result;
     }
 
 
-    private ProductCategory buildProductCategory(ResultSet queryResult) throws SQLException {
-        String name = queryResult.getString("name");
-        String department = queryResult.getString("department");
-        String description = queryResult.getString("description");
+    public List<ProductCategory> getAll() {
+        try {
+            List<ProductCategory> result = new ArrayList<>();
+            Connection sqlConnection = dataSource.getConnection();
 
-        return new ProductCategory(name, department, description);
+            String query = "SELECT id, name, department, description FROM product_categories";
+
+            PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
+
+            ResultSet queryResult = sqlStatement.executeQuery();
+
+            return queryResultToList(queryResult);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+
+    private List<ProductCategory> queryResultToList(ResultSet queryResult) {
+
+        try {
+            List<ProductCategory> result = new ArrayList<>();
+
+            while (queryResult.next()) {
+                ProductCategory productCategory = buildProductCategory(queryResult);
+                result.add(productCategory);
+            }
+
+            return result;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+
+    private ProductCategory buildProductCategory(ResultSet queryResult) {
+        try {
+            String name = queryResult.getString("name");
+            String department = queryResult.getString("department");
+            String description = queryResult.getString("description");
+
+            return new ProductCategory(name, department, description);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }

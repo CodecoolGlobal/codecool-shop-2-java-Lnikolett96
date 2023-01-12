@@ -27,8 +27,9 @@ public class SupplierDaoJDBC implements SupplierDao {
         return instance;
     }
 
-    public void add(Supplier supplier) throws SQLException {
-        Connection sqlConnection = dataSource.getConnection();
+    public void add(Supplier supplier) {
+        try {
+            Connection sqlConnection = dataSource.getConnection();
 
         String query = "INSERT INTO suppliers (name, description) VALUES (?, ?);";
 
@@ -37,60 +38,90 @@ public class SupplierDaoJDBC implements SupplierDao {
         statement.setString(2, supplier.getDescription());
 
         statement.executeUpdate();
-    }
-
-    public Supplier find(String name) throws SQLException {
-        Connection sqlConnection = dataSource.getConnection();
-
-        String query = "SELECT id, name, description FROM suppliers\n" +
-                "WHERE name=?;";
-
-        PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
-        sqlStatement.setString(1, name);
-
-        ResultSet queryResult = sqlStatement.executeQuery();
-        queryResult.next();
-
-        return buildSupplier(queryResult);
-    }
-
-    public void remove(String name) throws SQLException {
-        Connection sqlConnection = dataSource.getConnection();
-
-        String query = "DELETE FROM suppliers WHERE name=?;";
-
-        PreparedStatement statement = sqlConnection.prepareStatement(query);
-        statement.setString(1, name);
-
-        statement.executeUpdate();
-    }
-
-    public List<Supplier> getAll() throws SQLException {
-        List<Product> result = new ArrayList<>();
-        Connection sqlConnection = dataSource.getConnection();
-
-        String query = "SELECT id, name, description FROM suppliers";
-
-        PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
-
-        ResultSet queryResult = sqlStatement.executeQuery();
-
-        return queryResultToList(queryResult);
-    }
-
-    private List<Supplier> queryResultToList(ResultSet queryResult) throws SQLException {
-        List<Supplier> result = new ArrayList<>();
-
-        while (queryResult.next()) {
-            Supplier supplier = buildSupplier(queryResult);
-            result.add(supplier);
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
         }
+    }
 
-        return result;
+    public Supplier find(String name){
+        try{
+            Connection sqlConnection = dataSource.getConnection();
+
+            String query = "SELECT id, name, description FROM suppliers\n" +
+                    "WHERE name=?;";
+
+            PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
+            sqlStatement.setString(1, name);
+
+            ResultSet queryResult = sqlStatement.executeQuery();
+            queryResult.next();
+
+            return buildSupplier(queryResult);
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+       return null;
+    }
+
+    public void remove(String name) {
+        try{
+            Connection sqlConnection = dataSource.getConnection();
+
+            String query = "DELETE FROM suppliers WHERE name=?;";
+
+            PreparedStatement statement = sqlConnection.prepareStatement(query);
+            statement.setString(1, name);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public List<Supplier> getAll() {
+        try {
+            Connection sqlConnection = dataSource.getConnection();
+
+            String query = "SELECT id, name, description FROM suppliers";
+
+            PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
+
+            ResultSet queryResult = sqlStatement.executeQuery();
+
+            return queryResultToList(queryResult);
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
 
-    private Supplier buildSupplier(ResultSet queryResult) throws SQLException {
-        return new Supplier(queryResult.getString("name"), queryResult.getString("description"));
+    private List<Supplier> queryResultToList(ResultSet queryResult) {
+        try {
+            List<Supplier> result = new ArrayList<>();
+
+            while (queryResult.next()) {
+                Supplier supplier = buildSupplier(queryResult);
+                result.add(supplier);
+            }
+
+            return result;
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+
+    private Supplier buildSupplier(ResultSet queryResult) {
+        try {
+            return new Supplier(queryResult.getString("name"), queryResult.getString("description"));
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }

@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface SupplierDao {
 
-    void add(Supplier supplier) throws SQLException;
-    Supplier find(String name) throws SQLException;
-    void remove(String name) throws SQLException;
+    void add(Supplier supplier);
+    Supplier find(String name);
+    void remove(String name);
 
     List<Supplier> getAll() throws SQLException;
 }
