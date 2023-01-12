@@ -2,7 +2,6 @@ package com.codecool.shop.dao.connection;
 
 import javax.sql.DataSource;
 
-import org.postgresql.PGEnvironment;
 import org.postgresql.ds.PGSimpleDataSource;
 
 public class SQLDataConnection {
