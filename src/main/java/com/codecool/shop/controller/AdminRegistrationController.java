@@ -1,8 +1,12 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.connection.SQLDataConnection;
+import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.JDBC.UserDaoJDBC;
+import com.codecool.shop.dao.implementation.mem.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.mem.SupplierDaoMem;
+import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.User;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -16,14 +20,19 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 
-@WebServlet(urlPatterns = {"/registry"})
-public class RegistrationController extends HttpServlet {
+@WebServlet(urlPatterns = {"/adminRegister"})
+public class AdminRegistrationController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        SupplierDaoMem supplierDataStore = SupplierDaoMem.getInstance();
+
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        context.setVariable("categoriesList", productCategoryDataStore.getAll());
+        context.setVariable("suppliers", supplierDataStore.getAll());
 
         engine.process("product/registration.html", context, resp.getWriter());
     }
@@ -36,15 +45,15 @@ public class RegistrationController extends HttpServlet {
         String username = req.getParameter("username");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+        int mode = 1;
 
         UserDaoJDBC user_register = UserDaoJDBC.getInstance();
         User user = new User(username,email,password);
         try {
-            user_register.add(user);
+            user_register.addAdmin(user);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
 
     }
 

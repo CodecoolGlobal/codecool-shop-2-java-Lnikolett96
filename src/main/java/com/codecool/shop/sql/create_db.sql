@@ -18,10 +18,11 @@ CREATE TABLE products (
 );
 
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY NOT NULL ,
+    id SERIAL PRIMARY KEY NOT NULL,
     username VARCHAR,
     email VARCHAR,
-    password VARCHAR
+    password VARCHAR,
+    isAdmin int default 0
 );
 
 CREATE TABLE suppliers (

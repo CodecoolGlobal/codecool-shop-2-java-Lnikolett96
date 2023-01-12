@@ -59,12 +59,8 @@ public class AddNewProductController extends HttpServlet {
         SupplierDaoJDBC this_supplier = SupplierDaoJDBC.getInstance();
         ProductDaoJDBC products = ProductDaoJDBC.getInstance();
 
-        try {
-            Product product = new Product(productName, thisPrice, currency, description, product_category.find(category), this_supplier.find(supplier), "/static/img/" + fileName);
-            products.add(product);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        Product product = new Product(productName, thisPrice, currency, description, product_category.find(category), this_supplier.find(supplier), "/static/img/" + fileName);
+        products.add(product);
     }
 
 }
