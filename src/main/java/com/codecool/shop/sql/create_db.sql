@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS product_categories;
 DROP TABLE IF EXISTS order_header CASCADE ;
 DROP TABLE IF EXISTS order_items;
 DRoP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS carts;
 
 CREATE TABLE products (
     id SERIAL PRIMARY KEY NOT NULL,
