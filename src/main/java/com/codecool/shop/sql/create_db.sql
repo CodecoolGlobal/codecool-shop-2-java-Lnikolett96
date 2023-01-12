@@ -45,8 +45,12 @@ ALTER TABLE ONLY products
 CREATE TABLE order_header (
     id SERIAL PRIMARY KEY NOT NULL,
     order_date DATE,
-    order_total NUMERIC
+    order_total NUMERIC,
+    user_id INTEGER
 );
+
+ALTER TABLE ONLY order_header
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id);
 
 CREATE TABLE order_items (
     id SERIAL PRIMARY KEY NOT NULL,

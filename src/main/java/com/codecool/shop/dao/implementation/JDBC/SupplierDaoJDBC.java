@@ -50,8 +50,6 @@ public class SupplierDaoJDBC {
         return buildSupplier(queryResult);
     }
 
-    
-
     private Supplier buildSupplier(ResultSet queryResult) throws SQLException {
         return new Supplier(queryResult.getString("name"), queryResult.getString("description"));
     }
