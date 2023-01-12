@@ -36,7 +36,7 @@ public class ProductDaoJDBC implements ProductDao {
         String query = "INSERT INTO products (name, price, category_id, supplier_id, currency, image_file_name) VALUES (?, ?, ?, ?, ?, ?);";
 
         PreparedStatement statement = sqlConnection.prepareStatement(query);
-        statement.setString(1, product.getName();
+        statement.setString(1, product.getName());
         statement.setString(2, product.getPrice().toString());
         statement.setInt(3, product.getProductCategory().getId());
         statement.setInt(4, product.getSupplier().getId());
@@ -127,7 +127,7 @@ public class ProductDaoJDBC implements ProductDao {
 
         ResultSet queryResult = sqlStatement.executeQuery();
 
-        return queryResultToList(queryResult);;ű
+        return queryResultToList(queryResult);
     }
 
     private static List<Product> queryResultToList (ResultSet queryResult) throws SQLException {

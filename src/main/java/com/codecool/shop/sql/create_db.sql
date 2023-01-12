@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS products CASCADE;
-DROP TABLE IF EXISTS suppliers CASCADE ;
-DROP TABLE IF EXISTS product_categories CASCADE;
+DROP TABLE IF EXISTS suppliers;
+DROP TABLE IF EXISTS product_categories;
 DROP TABLE IF EXISTS order_header CASCADE ;
-DROP TABLE IF EXISTS order_items CASCADE;
+DROP TABLE IF EXISTS order_items;
 
 CREATE TABLE products (
     id SERIAL PRIMARY KEY NOT NULL,
@@ -13,6 +13,13 @@ CREATE TABLE products (
     currency VARCHAR,
     description VARCHAR,
     image_file_name VARCHAR
+);
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY NOT NULL ,
+    username VARCHAR,
+    email VARCHAR,
+    password VARCHAR
 );
 
 CREATE TABLE suppliers (

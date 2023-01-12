@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Arrays;
 
 @WebServlet(urlPatterns = {"/cart-content"})
@@ -40,9 +41,17 @@ public class CartController extends HttpServlet {
         String whichMethod = req.getParameter("method");
         int prodId = Integer.parseInt(req.getParameter("prodid"));
         if (whichMethod.equals("add")) {
-            cartService.productAddToCart(prodId);
+            try {
+                cartService.productAddToCart(prodId);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         } else {
-            cartService.decreaseAmount(prodId);
+            try {
+                cartService.decreaseAmount(prodId);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
