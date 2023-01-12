@@ -21,12 +21,12 @@ public class ProductService{
         this.productCategoryDao = productCategoryDao;
     }
 
-    public ProductCategory getProductCategory(int categoryId){
-        return productCategoryDao.find(categoryId);
+    public ProductCategory getProductCategory(String name) throws SQLException {
+        return productCategoryDao.find(name);
     }
 
-    public List<Product> getProductsForCategory(int categoryId) throws SQLException {
-        var category = productCategoryDao.find(categoryId);
+    public List<Product> getProductsForCategory(String name) throws SQLException {
+        var category = productCategoryDao.find(name);
         return productDao.getBy(category);
     }
 }
