@@ -54,7 +54,7 @@ public class ProductDaoJDBC implements ProductDao {
         String query = "SELECT p.id, p.name, p.price, p.category_id, p.supplier_id, p.currency, p.description, p.image_file_name, pc.id, pc.name, pc.department, pc.description, s.name, s.description FROM products p\n" +
                 "    JOIN product_categories pc on pc.id = p.category_id\n" +
                 "    JOIN suppliers s on p.supplier_id = s.id                                                                                                                                                        \n" +
-                "    WHERE p.id=1;";
+                "    WHERE p.id=?;";
 
         PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
         sqlStatement.setInt(1, id);

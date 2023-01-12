@@ -8,7 +8,7 @@ import java.util.List;
 public interface ProductCategoryDao {
 
     void add(ProductCategory category) throws SQLException;
-    ProductCategory find(int id);
+    ProductCategory find(int id) throws SQLException;
     void remove(int id);
 
     List<ProductCategory> getAll();
