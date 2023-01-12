@@ -9,7 +9,7 @@ public interface ProductCategoryDao {
 
     void add(ProductCategory category) throws SQLException;
     ProductCategory find(int id) throws SQLException;
-    void remove(int id);
+    void remove(int id) throws SQLException;
 
     List<ProductCategory> getAll();
 

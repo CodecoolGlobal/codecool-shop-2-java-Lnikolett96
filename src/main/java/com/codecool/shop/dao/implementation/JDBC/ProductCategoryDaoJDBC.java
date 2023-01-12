@@ -52,8 +52,20 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
         ResultSet queryResult = sqlStatement.executeQuery();
         queryResult.next();
 
-        return buildProductCategory(queryResult);         
+        return buildProductCategory(queryResult);
     };
+
+    public void remove(int id) throws SQLException {
+        Connection sqlConnection = dataSource.getConnection();
+
+        String query = "DELETE FROM product_categories WHERE id=?;";
+
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        statement.setInt(1, id);
+
+        statement.executeUpdate();
+    }
+
 
     private ProductCategory buildProductCategory(ResultSet queryResult) throws SQLException {
         String name = queryResult.getString("name");
