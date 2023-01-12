@@ -10,19 +10,19 @@ import java.sql.SQLException;
 
 public class LoginDaoJDBC implements LoginDao {
 
-    private LoginDaoJDBC instance = null;
+    private static LoginDaoJDBC instance = null;
     private DataSource dataSource;
 
     public LoginDaoJDBC() {
         this.dataSource = new SQLDataConnection().connect();
     }
 
-    public LoginDaoJDBC getInstance() {
+    public static LoginDaoJDBC getInstance() {
         if (instance == null) instance = new LoginDaoJDBC();
         return instance;
     }
 
-    public String getUserName(String email, String password) throws SQLException {
+    public String getUserName(String email, String password) {
         try {
             Connection sqlConnection = dataSource.getConnection();
             String query = "SELECT username FROM users WHERE email = ? AND password = ?";
@@ -34,7 +34,8 @@ public class LoginDaoJDBC implements LoginDao {
             return statement.executeQuery().getString(1);
 
         } catch (SQLException e){
-            throw new SQLException(e.getMessage());
+            System.out.println(e.getMessage());
         }
+        return null;
     }
 }
