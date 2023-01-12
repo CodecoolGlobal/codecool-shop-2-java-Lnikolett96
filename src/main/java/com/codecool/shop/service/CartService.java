@@ -4,6 +4,7 @@ import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,11 +20,11 @@ public class CartService {
         this.productDao = productDao;
     }
 
-    public void productAddToCart(int prodId) {
+    public void productAddToCart(int prodId) throws SQLException {
         cartDao.add(productDao.find(prodId));
     }
 
-    public void decreaseAmount(int prodId) {
+    public void decreaseAmount(int prodId) throws SQLException {
         cartDao.remove(productDao.find(prodId));
     }
 

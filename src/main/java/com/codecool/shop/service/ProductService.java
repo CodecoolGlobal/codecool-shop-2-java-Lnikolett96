@@ -6,6 +6,7 @@ import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,7 @@ public class ProductService{
         return productCategoryDao.find(categoryId);
     }
 
-    public List<Product> getProductsForCategory(int categoryId){
+    public List<Product> getProductsForCategory(int categoryId) throws SQLException {
         var category = productCategoryDao.find(categoryId);
         return productDao.getBy(category);
     }

@@ -1,0 +1,1 @@
+{"id":"59ca93c4-7f7e-408d-ba30-e49ab005f862","name":"dhjfchdi","zipCode":1100,"city":"hfdkwd","address":"adhksdx 23","phone":"05204131","payment_method":"paypal","credit_card_number":"","credit_card_expiry":"","credit_card_cvc":"","email":"shx@gnd.hu","totalPrice":149.7,"success":true}

@@ -158,3 +158,12 @@ label {
 .card-title1 {
     color: black;
 }
+
+.center {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 120px 0 120px 0;
+    align-items: center;
+
+}
