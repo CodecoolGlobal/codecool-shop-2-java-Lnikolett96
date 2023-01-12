@@ -1,6 +1,7 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dao.implementation.JDBC;
 
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.connection.SQLDataConnection;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -20,12 +21,12 @@ public class ProductDaoJDBC implements ProductDao {
     private DataSource dataSource;
 
 
-    private ProductDaoJDBC(DataSource dataSource) {
-        this.dataSource = dataSource;
+    private ProductDaoJDBC() {
+        dataSource = new SQLDataConnection().connect();
     }
 
-    public static ProductDaoJDBC getInstance(DataSource dataSource){
-        if (instance == null) instance = new ProductDaoJDBC(dataSource);
+    public static ProductDaoJDBC getInstance(){
+        if (instance == null) instance = new ProductDaoJDBC();
         return instance;
     }
 

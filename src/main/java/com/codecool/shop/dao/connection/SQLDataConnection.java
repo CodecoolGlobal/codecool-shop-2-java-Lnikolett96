@@ -6,7 +6,6 @@ import org.postgresql.PGEnvironment;
 import org.postgresql.ds.PGSimpleDataSource;
 
 public class SQLDataConnection {
-    // "MonsterWebshop", "mimi", "vmimif"
     public DataSource connect() {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         String database = System.getenv("databaseName");
