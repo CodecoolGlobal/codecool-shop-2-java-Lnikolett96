@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     private ProductCategoryDaoJDBC instance = null;
@@ -23,7 +25,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     }
 
     public ProductCategoryDaoJDBC getInstance() {
-        if (instance==null) instance = new ProductCategoryDaoJDBC();
+        if (instance == null) instance = new ProductCategoryDaoJDBC();
         return instance;
     }
 
@@ -53,7 +55,9 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
         queryResult.next();
 
         return buildProductCategory(queryResult);
-    };
+    }
+
+    ;
 
     public void remove(int id) throws SQLException {
         Connection sqlConnection = dataSource.getConnection();
@@ -66,14 +70,36 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
         statement.executeUpdate();
     }
 
+    public List<ProductCategory> getAll() throws SQLException {
+        List<ProductCategory> result = new ArrayList<>();
+        Connection sqlConnection = dataSource.getConnection();
+
+        String query = "SELECT id, name, department, description FROM product_categories";
+
+        PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
+
+        ResultSet queryResult = sqlStatement.executeQuery();
+
+        return queryResultToList(queryResult);
+    }
+
+    private List<ProductCategory> queryResultToList(ResultSet queryResult) throws SQLException {
+        List<ProductCategory> result = new ArrayList<>();
+
+        while (queryResult.next()) {
+            ProductCategory productCategory = buildProductCategory(queryResult);
+            result.add(productCategory);
+        }
+
+        return result;
+    }
+
 
     private ProductCategory buildProductCategory(ResultSet queryResult) throws SQLException {
         String name = queryResult.getString("name");
         String department = queryResult.getString("department");
         String description = queryResult.getString("description");
-
-        ProductCategory productCategory = new ProductCategory(name, department, description);
-
-        return productCategory;
-    };
+        
+        return new ProductCategory(name, department, description);;
+    }
 }

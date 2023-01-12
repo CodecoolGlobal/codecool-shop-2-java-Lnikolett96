@@ -11,6 +11,6 @@ public interface ProductCategoryDao {
     ProductCategory find(int id) throws SQLException;
     void remove(int id) throws SQLException;
 
-    List<ProductCategory> getAll();
+    List<ProductCategory> getAll() throws SQLException;
 
 }
