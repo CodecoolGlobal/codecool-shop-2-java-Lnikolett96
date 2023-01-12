@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Codecool">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Codecool Shop</title>
+
+    <!-- Bootstrap components -->
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- End of Bootstrap components -->
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css">
+</head>
+<body>
+
+<div class="jumbotron text-center main-pic">
+    <img width="100%" src="/static/img/fejlec_nev.png" alt="My Little Monster Shop">
+</div>
+
+<h1 class="neonText"> Welcome our Creepy Webshop!</h1>
+<p class="neonText"> ... Make your profil today ...</p>
+
+<div class="center neonBox1">
+    <br>
+    <h1 class="neonText">Add new Product!</h1> <br> <br>
+
+    <form style="align-content: center" action="" method="post" enctype="multipart/form-data">
+
+        <label style="text-align: center" class="neonText" for="product_name"> Product Name: </label><br>
+        <input style="text-align: center" class="neonBox1" type="text" name="product_name" id="product_name"
+               placeholder="Enter monster race:" required> <br>
+
+        <label style="text-align: center" class="neonText" for="price">Set Price: </label> <br>
+        <input style="text-align: center" class="neonBox1" type="number" name="price" id="price"
+               placeholder="Enter price" required> <br>
+
+        <label style="text-align: center" class="neonText" for="currency">Currency: </label> <br>
+        <select name="currency" id="currency">
+            <option value="Eur">Eur</option>
+            <option value="Usd">USD</option>
+            <option value="Gpd">GDP</option>
+        </select> <br>
+
+        <label style="text-align: center" class="neonText" for="description">Product Description: </label> <br>
+        <textarea style="text-align: center" class="neonBox1" type="text" id="description" name="description" rows="20"
+                  required></textarea> <br>
+
+        <label style="text-align: center" class="neonText" for="category">Product Category: </label> <br>
+        <select name="category" id="category">
+
+            <th:block th:each="cat, iter : ${categoriesList}">
+                <option th:value="${cat.id}" th:text="${cat.name}"></option>
+            </th:block>
+
+        </select>
+        <br>
+        <label style="text-align: center" class="neonText" for="supplier">Supplier: </label> <br>
+        <select name="supplier" id="supplier">
+
+            <th:block th:each="cat, iter : ${suppliers}">
+                <option th:value="${cat.id}" th:text="${cat.name}"></option>
+            </th:block>
+        </select>
+        <br>
+
+        <input type="file" name="file">
+
+        <button type="submit" value="upload">Add new product</button>
+
+    </form>
+</div>
+
+<br><br>
+
+
+<div class="footer" th:replace="footer.html :: copy"></div>
+
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.codecool.shop.dao.implementation.JDBC;
 
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.connection.SQLDataConnection;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
@@ -30,52 +31,49 @@ public class SupplierDaoJDBC implements SupplierDao {
         try {
             Connection sqlConnection = dataSource.getConnection();
 
-            String query = "INSERT INTO suppliers (name, description) VALUES (?, ?);";
+        String query = "INSERT INTO suppliers (name, description) VALUES (?, ?);";
 
-            PreparedStatement statement = sqlConnection.prepareStatement(query);
-            statement.setString(1, supplier.getName());
-            statement.setString(2, supplier.getDescription());
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        statement.setString(1, supplier.getName());
+        statement.setString(2, supplier.getDescription());
 
-            statement.executeUpdate();
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
+        statement.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
         }
     }
 
-    public Supplier find(int id) {
-        try {
+    public Supplier find(String name){
+        try{
             Connection sqlConnection = dataSource.getConnection();
 
             String query = "SELECT id, name, description FROM suppliers\n" +
-                    "WHERE id=?;";
+                    "WHERE name=?;";
 
             PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
-            sqlStatement.setInt(1, id);
+            sqlStatement.setString(1, name);
 
             ResultSet queryResult = sqlStatement.executeQuery();
             queryResult.next();
 
             return buildSupplier(queryResult);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e){
             System.out.println(e.getMessage());
         }
-        return null;
+       return null;
     }
 
-    public void remove(int id) {
-        try {
+    public void remove(String name) {
+        try{
             Connection sqlConnection = dataSource.getConnection();
 
-            String query = "DELETE FROM suppliers WHERE id=?;";
+            String query = "DELETE FROM suppliers WHERE name=?;";
 
             PreparedStatement statement = sqlConnection.prepareStatement(query);
-            statement.setInt(1, id);
+            statement.setString(1, name);
 
             statement.executeUpdate();
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -97,6 +95,7 @@ public class SupplierDaoJDBC implements SupplierDao {
         }
         return null;
     }
+
 
     private List<Supplier> queryResultToList(ResultSet queryResult) {
         try {
