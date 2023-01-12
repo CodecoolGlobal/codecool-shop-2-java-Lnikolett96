@@ -99,7 +99,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
         String name = queryResult.getString("name");
         String department = queryResult.getString("department");
         String description = queryResult.getString("description");
-        
-        return new ProductCategory(name, department, description);;
+
+        return new ProductCategory(name, department, description);
     }
 }
