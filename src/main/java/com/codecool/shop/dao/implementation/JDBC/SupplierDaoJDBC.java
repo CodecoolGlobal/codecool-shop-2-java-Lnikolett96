@@ -39,14 +39,14 @@ public class SupplierDaoJDBC implements SupplierDao {
         statement.executeUpdate();
     }
 
-    public Supplier find(int id) throws SQLException {
+    public Supplier find(String name) throws SQLException {
         Connection sqlConnection = dataSource.getConnection();
 
         String query = "SELECT id, name, description FROM suppliers\n" +
-                "WHERE id=?;";
+                "WHERE name=?;";
 
         PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
-        sqlStatement.setInt(1, id);
+        sqlStatement.setString(1, name);
 
         ResultSet queryResult = sqlStatement.executeQuery();
         queryResult.next();
@@ -54,13 +54,13 @@ public class SupplierDaoJDBC implements SupplierDao {
         return buildSupplier(queryResult);
     }
 
-    public void remove(int id) throws SQLException {
+    public void remove(String name) throws SQLException {
         Connection sqlConnection = dataSource.getConnection();
 
-        String query = "DELETE FROM suppliers WHERE id=?;";
+        String query = "DELETE FROM suppliers WHERE name=?;";
 
         PreparedStatement statement = sqlConnection.prepareStatement(query);
-        statement.setInt(1, id);
+        statement.setString(1, name);
 
         statement.executeUpdate();
     }

@@ -28,21 +28,29 @@ public class Initializer implements ServletContextListener {
 
         //setting up a new supplier
         Supplier Japan = new Supplier("Japan", "The national Yokai trader");
-        supplierDataStore.add(Japan);
         Supplier DemonTrader = new Supplier("Demon trader co.", "We catch demons for you.");
-        supplierDataStore.add(DemonTrader);
         Supplier nationalCreatureAgency = new Supplier("National Creature Agency", "We catch famouse creatures and breed them.");
-        supplierDataStore.add(nationalCreatureAgency);
+        try {
+            supplierDataStore.add(nationalCreatureAgency);
+            supplierDataStore.add(Japan);
+            supplierDataStore.add(DemonTrader);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
 
         //setting up a new product category
         ProductCategory Japanese_demons = new ProductCategory("Japanese Demons", "Demon", "Demons from Japanese culture");
-        productCategoryDataStore.add(Japanese_demons);
-
         ProductCategory Cursed_item = new ProductCategory("Cursed item", "Cursed item with a demon inside", "Haunting cursed items");
-        productCategoryDataStore.add(Cursed_item);
-
         ProductCategory legendaryCreatures = new ProductCategory("Legendary Creatures", "Badass creatures", "These creatures need big habitat and hard self-control");
-        productCategoryDataStore.add(legendaryCreatures);
+        try {
+            productCategoryDataStore.add(legendaryCreatures);
+            productCategoryDataStore.add(Japanese_demons);
+            productCategoryDataStore.add(Cursed_item);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
 
         //setting up products and printing it
         try {

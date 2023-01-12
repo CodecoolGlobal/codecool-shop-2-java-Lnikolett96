@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Codecool">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Codecool Shop</title>
+
+    <!-- Bootstrap components -->
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!--Latest compiled and minified Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- End of Bootstrap components -->
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css">
+    <script src="/static/js/index.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css">
+    <script src="/static/js/cart.js" defer></script>
+</head>
+
+<body>
+<div class="jumbotron text-center main-pic">
+    <img width="100%" src="/static/img/fejlec_nev.png" alt="My Little Monster Shop">
+</div>
+<div class="card-text">
+    <a class="btn" href="/cart-content"><img width="70px" class="cart-button" src="/static/img/add-to-cart.png"
+                                             alt="Add to cart"></a>
+</div>
+
+<button><a href="/registry"> Reg </a></button>
+<button><a href="/login"> Login </a></button>
+
+<h1 class="neonText"> Dashboard!</h1>
+<p class="neonText"> ... Be carefull what you would modify ...</p>
+
+<h1> Hi Dear Admin!</h1>
+
+<div class="neonBox1">
+
+    <button><a href="">Add new Supplier </a></button>
+    <button><a href="">Add new Category</a> </button>
+    <button><a href="/adminRegister">Add new Admin User</a></button>
+    <button><a href="/addProduct">Add new Product</a> </button>
+
+</div>
+
+<div class="neonBox1">
+
+    <h2> Total income: 2000$/This month</h2>
+
+</div>
+
+
+<div class="footer" th:replace="footer.html :: copy"></div>
+</body>
+</html>

@@ -17,14 +17,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryDaoJDBC implements ProductCategoryDao {
-    private ProductCategoryDaoJDBC instance = null;
+    private static ProductCategoryDaoJDBC instance = null;
     private DataSource dataSource;
 
     private ProductCategoryDaoJDBC() {
         dataSource = new SQLDataConnection().connect();
     }
 
-    public ProductCategoryDaoJDBC getInstance() {
+    public static ProductCategoryDaoJDBC getInstance() {
         if (instance == null) instance = new ProductCategoryDaoJDBC();
         return instance;
     }
@@ -42,14 +42,14 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
         statement.executeUpdate();
     }
 
-    public ProductCategory find(int id) throws SQLException {
+    public ProductCategory find(String name) throws SQLException {
         Connection sqlConnection = dataSource.getConnection();
 
-        String query = "SELECT id, department, description FROM product_categories\n" +
-                "WHERE id=?;";
+        String query = "SELECT id, name, department, description FROM product_categories\n" +
+                "WHERE name=?;";
 
         PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
-        sqlStatement.setInt(1, id);
+        sqlStatement.setString(1, name);
 
         ResultSet queryResult = sqlStatement.executeQuery();
         queryResult.next();
@@ -59,13 +59,13 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     ;
 
-    public void remove(int id) throws SQLException {
+    public void remove(String name) throws SQLException {
         Connection sqlConnection = dataSource.getConnection();
 
         String query = "DELETE FROM product_categories WHERE id=?;";
 
         PreparedStatement statement = sqlConnection.prepareStatement(query);
-        statement.setInt(1, id);
+        statement.setString(1, name);
 
         statement.executeUpdate();
     }
