@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS product_categories;
 DROP TABLE IF EXISTS order_header CASCADE ;
 DROP TABLE IF EXISTS order_items;
 DRoP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS carts;
 
 CREATE TABLE products (
     id SERIAL PRIMARY KEY NOT NULL,
@@ -64,3 +65,16 @@ ALTER TABLE ONLY order_items
 
 ALTER TABLE ONLY order_items
     ADD CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products(id);
+
+CREATE TABLE carts(
+    id SERIAL PRIMARY KEY NOT NULL,
+    user_id INTEGER,
+    product_id INTEGER,
+    quantity INTEGER
+);
+
+ALTER TABLE ONLY carts
+    ADD CONSTRAINT fk_carts_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+
+ALTER TABLE ONLY carts
+    ADD CONSTRAINT fk_carts_product_id FOREIGN KEY (product_id) REFERENCES products(id);
