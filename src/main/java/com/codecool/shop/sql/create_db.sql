@@ -80,19 +80,3 @@ ALTER TABLE ONLY carts
 ALTER TABLE ONLY carts
     ADD CONSTRAINT fk_carts_product_id FOREIGN KEY (product_id) REFERENCES products(id);
 
-INSERT INTO categories VALUES ('Japanese_demons');
-INSERT INTO categories VALUES ('Cursed_item');
-INSERT INTO categories VALUES ('legendaryCreatures');
-
-INSERT INTO suppliers VALUES ('Japan');
-INSERT INTO suppliers VALUES ('DemonTrader');
-INSERT INTO suppliers VALUES ('nationalCreatureAgency');
-
-INSERT INTO products VALUES ('Aka - Shita', 49.9, 1, 1, 'USD', 'product_1');
-INSERT INTO products VALUES ('Kitsune', 89, 1, 1, 'USD', 'product_3');
-INSERT INTO products VALUES ('Jorogumo', 99, 1, 1, 'USD', 'product_4');
-INSERT INTO products VALUES ('AnnaBelle', 47.9, 2, 2, 'USD', 'product_2');
-INSERT INTO products VALUES ('Cursed Mirror', 99, 2, 2, 'USD', 'product_5');
-INSERT INTO products VALUES ('The anguished man painting', 99, 2, 2, 'USD', 'product_6');
-INSERT INTO products VALUES ('Fenrir', 120, 3, 3, 'USD', 'product_7');
-INSERT INTO products VALUES ('Kraken', 1000, 3, 3, 'USD', 'product_8');
