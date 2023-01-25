@@ -31,11 +31,44 @@ public class LoginDaoJDBC implements LoginDao {
             statement.setString(1, email);
             statement.setString(2, password);
 
-            return statement.executeQuery().getString(1);
+            return statement.executeQuery().getString(2);
 
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
         return null;
     }
+
+    public int getUserId(String email, String password) {
+        try {
+            Connection sqlConnection = dataSource.getConnection();
+            String query = "SELECT id FROM users WHERE email = ? AND password = ?";
+
+            PreparedStatement statement = sqlConnection.prepareStatement(query);
+            statement.setString(1, email);
+            statement.setString(2, password);
+
+            return statement.executeQuery().getInt(1);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+    public int getIsAdmin(String email, String password) {
+        try {
+            Connection sqlConnection = dataSource.getConnection();
+            String query = "SELECT isadmin FROM users WHERE email = ? AND password = ?";
+
+            PreparedStatement statement = sqlConnection.prepareStatement(query);
+            statement.setString(1, email);
+            statement.setString(2, password);
+
+            return statement.executeQuery().getInt(5);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
 }
