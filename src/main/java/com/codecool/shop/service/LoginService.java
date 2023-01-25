@@ -10,7 +10,7 @@ public class LoginService {
         this.loginDao = loginDao;
     }
 
-    public void getUserName(String email, String password) {
-        loginDao.getUserName(email, password);
+    public String getUserName(String email, String password) {
+       return loginDao.getUserName(email, password);
     }
 }

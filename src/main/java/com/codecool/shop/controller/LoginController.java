@@ -7,10 +7,12 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
+import javax.servlet.SessionCookieConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/login"})
@@ -28,6 +30,17 @@ public class LoginController extends HttpServlet {
     }
 
 
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//    }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        if (validateEmailAndPassword(email, password)){
+            String username = loginService.getUserName(email, password);
+            HttpSession httpSession = req.getSession();
+
+        }
+    }
+
+    private boolean validateEmailAndPassword(String email, String password) {
+        return loginService.getUserName(email, password) != null;
+    }
 }
