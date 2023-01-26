@@ -9,7 +9,11 @@ import com.codecool.shop.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class UserDaoJDBC implements registrationDao{
 
@@ -53,5 +57,36 @@ public class UserDaoJDBC implements registrationDao{
         statement.setInt(4, 1);
 
         statement.executeUpdate();
+    }
+
+    @Override
+    public boolean checkIfExist(String username, String email) throws SQLException {
+        Connection sqlConnection = dataSource.getConnection();
+
+        String query = "SELECT username, email FROM users WHERE username = ? OR email = ?;";
+
+        PreparedStatement statement = sqlConnection.prepareStatement(query);
+        statement.setString(1, username);
+        statement.setString(2, email);
+
+        ResultSet queryResult = statement.executeQuery();
+        List<String> resultList = queryResultToList(queryResult);
+        return resultList.size() != 0;
+    }
+
+    static List<String> queryResultToList(ResultSet queryResult) {
+        try {
+            List<String> result = new ArrayList<>();
+
+            while (queryResult.next()) {
+                result.add(String.valueOf(queryResult.next()));
+            }
+            System.out.println(result);
+            return result;
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }

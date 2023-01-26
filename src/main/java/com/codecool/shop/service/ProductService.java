@@ -3,6 +3,8 @@ package com.codecool.shop.service;
 import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.JDBC.ProductCategoryDaoJDBC;
+import com.codecool.shop.dao.implementation.JDBC.ProductDaoJDBC;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 
@@ -12,21 +14,25 @@ import java.util.List;
 import java.util.Optional;
 
 public class ProductService{
-    private ProductDao productDao;
-    private ProductCategoryDao productCategoryDao;
+    private ProductDaoJDBC productDaoJDBC;
+    private ProductCategoryDaoJDBC productCategoryDaoJDBC;
 
 
-    public ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao) {
-        this.productDao = productDao;
-        this.productCategoryDao = productCategoryDao;
+    public ProductService(ProductDaoJDBC productDaoJDBC, ProductCategoryDaoJDBC productCategoryDaoJDBC) {
+        this.productDaoJDBC = productDaoJDBC;
+        this.productCategoryDaoJDBC = productCategoryDaoJDBC;
     }
 
-    public ProductCategory getProductCategory(String name) throws SQLException {
-        return productCategoryDao.find(name);
+    public ProductCategory getProductCategory(int id) throws SQLException {
+        return productCategoryDaoJDBC.find(id);
     }
 
-    public List<Product> getProductsForCategory(String name) throws SQLException {
-        var category = productCategoryDao.find(name);
-        return productDao.getBy(category);
+    public List<Product> getProductsForCategory(int id) throws SQLException {
+        var category = productCategoryDaoJDBC.find(id);
+        return productDaoJDBC.getBy(category);
+    }
+
+    public List<Product> getAllProduct(){
+        return productDaoJDBC.getAll();
     }
 }

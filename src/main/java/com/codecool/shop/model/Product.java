@@ -10,15 +10,19 @@ public class Product extends BaseModel {
     private ProductCategory productCategory;
     private Supplier supplier;
 
+    private int id = 0;
+
     private String imageFileName;
 
 
     public Product(String name, BigDecimal defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier, String imageFileName) {
         super(name, description);
+        this.setId(id);
         this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
         this.imageFileName = imageFileName;
+        id += 1;
     }
 
     public BigDecimal getDefaultPrice() {
