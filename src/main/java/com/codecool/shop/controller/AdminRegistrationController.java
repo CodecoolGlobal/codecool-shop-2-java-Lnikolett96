@@ -34,7 +34,7 @@ public class AdminRegistrationController extends HttpServlet {
         context.setVariable("categoriesList", productCategoryDataStore.getAll());
         context.setVariable("suppliers", supplierDataStore.getAll());
 
-        engine.process("product/registration.html", context, resp.getWriter());
+        engine.process("product/register.html", context, resp.getWriter());
     }
 
     @Override

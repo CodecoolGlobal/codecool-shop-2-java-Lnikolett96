@@ -1,34 +1,36 @@
 package com.codecool.shop.service;
 
-import com.codecool.shop.dao.CartDao;
-import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.JDBC.CartDaoJDBC;
+import com.codecool.shop.dao.implementation.JDBC.ProductDaoJDBC;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
+import com.codecool.shop.model.User;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CartService {
 
-    CartDao cartDao;
-    ProductDao productDao;
+    CartDaoJDBC cartDaoJDBC;
+    ProductDaoJDBC productDaoJDBC;
 
-    public CartService(CartDao cartDao, ProductDao productDao) {
-        this.cartDao = cartDao;
-        this.productDao = productDao;
+    public CartService(CartDaoJDBC cartDaoJDBC, ProductDaoJDBC productDaoJDBC) {
+        this.cartDaoJDBC = cartDaoJDBC;
+        this.productDaoJDBC = productDaoJDBC;
     }
 
-    public void productAddToCart(int prodId) throws SQLException {
-        cartDao.add(productDao.find(prodId));
+    public void productAddToCart(User user, int prodId) throws SQLException {
+        cartDaoJDBC.add(user,productDaoJDBC.find(prodId));
     }
 
-    public void decreaseAmount(int prodId) throws SQLException {
-        cartDao.remove(productDao.find(prodId));
+    public void decreaseAmount(User user,int prodId) throws SQLException {
+        cartDaoJDBC.remove(user,productDaoJDBC.find(prodId));
     }
 
-    public Map<Product, Integer> getCartProducts() {
-        return cartDao.getAll();
+    public Product getCartProducts() {
+        return new Product("csubaka",new BigDecimal(20.32),"USD","nyenyenye",new ProductCategory(4,"Geko","","")
+        ,new Supplier("fufu",""),"product_2");
     }
 }

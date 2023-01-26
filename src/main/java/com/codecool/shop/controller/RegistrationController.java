@@ -1,7 +1,6 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.connection.SQLDataConnection;
 import com.codecool.shop.dao.implementation.JDBC.UserDaoJDBC;
 import com.codecool.shop.model.User;
 import org.thymeleaf.TemplateEngine;
@@ -25,7 +24,7 @@ public class RegistrationController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        engine.process("product/registration.html", context, resp.getWriter());
+        engine.process("product/register.html", context, resp.getWriter());
     }
 
     @Override
@@ -38,12 +37,26 @@ public class RegistrationController extends HttpServlet {
         String password = req.getParameter("password");
 
         UserDaoJDBC user_register = UserDaoJDBC.getInstance();
-        User user = new User(username,email,password);
+
+        boolean canRegister = false;
         try {
-            user_register.add(user);
+            canRegister = user_register.checkIfExist(username, email);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        if (!canRegister) {
+            User user = new User(username, email, password);
+            try {
+                user_register.add(user);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            req.setAttribute("The username or email is already exist!", "Invalid"); // Will be available as ${message}
+        }
+
+
+        resp.sendRedirect("/");
 
 
     }

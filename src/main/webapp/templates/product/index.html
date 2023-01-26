@@ -52,27 +52,28 @@
     <label class="white">Choose by:</label> <br>
     <label class="white">category:</label>
     <select id="category-chooser">
-        <th:block th:each="cat, iter : ${categoriesList}">
+        <option value="all">all</option>
+        <th:block th:each="cat, iter : ${category}">
             <option th:value="${cat.name}" th:text="${cat.name}"></option>
         </th:block>
     </select>
 
-    <label class="white">Supplier:</label>
+    <!-- <label class="white">Supplier:</label>
     <select id="supplier-chooser">
         <th:block th:each="prod, iter : ${products}">
             <option th:value="${prod.name}" th:text="${prod.supplier.name}"></option>
         </th:block>
     </select>
-
+    -->
 </div>
 <div>
     <div id="products-by-category" class="container">
-        <th:block th:each="cat,iter : ${categoriesList}">
-            <div th:id="${cat.name}" class="row products">
-                <div class=" col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${category.getProductsForCategory(cat.id)}">
-                    <div class="card neonBox1">
+            <div  class="row">
+                <th:block th:each="prod,iter : ${allProductList}">
+                <div class=" col col-sm-12 col-md-6 col-lg-4">
+                    <div th:id="${prod.productCategory.name}" class="card neonBox1 products">
                         <img class="productImg" src="http://placehold.it/400x250/000/fff"
-                             th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
+                             th:attr="src='/static/img/' + ${prod.imageFileName} + '.jpg'" alt=""/>
                         <div class="card-header">
                             <h4 class="card-title card-title1" th:text="${prod.name}">Product name</h4>
                             <p class="card-text" th:text="${prod.description}">Product description... </p>

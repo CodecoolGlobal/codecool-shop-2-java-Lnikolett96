@@ -1,6 +1,8 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.implementation.JDBC.CartDaoJDBC;
+import com.codecool.shop.dao.implementation.JDBC.ProductDaoJDBC;
 import com.codecool.shop.dao.implementation.mem.CartDaoMem;
 import com.codecool.shop.dao.implementation.mem.ProductDaoMem;
 import com.codecool.shop.model.PaymentResult;
@@ -27,7 +29,7 @@ public class PaymentController extends HttpServlet {
 
     private PaymentResult paymentResult;
 
-    private CartService cartService = new CartService(CartDaoMem.getInstance(), ProductDaoMem.getInstance());
+    private CartService cartService = new CartService(CartDaoJDBC.getInstance(), ProductDaoJDBC.getInstance());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,9 +39,6 @@ public class PaymentController extends HttpServlet {
         context.setVariable("products", cartService.getCartProducts());
 
         BigDecimal totalPrice = BigDecimal.ZERO;
-        for (Product product: cartService.getCartProducts().keySet()) {
-            totalPrice = totalPrice.add(product.getDefaultPrice().multiply(BigDecimal.valueOf(cartService.getCartProducts().get(product))));
-        }
 
         context.setVariable("totalPrice", totalPrice);
 
@@ -81,9 +80,7 @@ public class PaymentController extends HttpServlet {
         boolean success = true;
 
         BigDecimal totalPrice = BigDecimal.ZERO;
-        for (Product product: cartService.getCartProducts().keySet()) {
-            totalPrice = totalPrice.add(product.getDefaultPrice().multiply(BigDecimal.valueOf(cartService.getCartProducts().get(product))));
-        }
+
 
         return new PaymentResult(id, name, zipCode, city, address, phone, payment_method, credit_card_number, credit_card_expiry, credit_card_cvv, email, totalPrice, success);
     }

@@ -99,9 +99,9 @@ public class ProductDaoJDBC implements ProductDao {
             List<Product> result = new ArrayList<>();
             Connection sqlConnection = dataSource.getConnection();
 
-            String query = "SELECT p.id, p.name, p.price, p.category_id, p.supplier_id, p.currency, p.description, p.image_file_name, pc.id, pc.name, pc.department, pc.description, s.name, s.description FROM products p\n" +
-                    "    JOIN product_categories pc on pc.id = p.category_id\n" +
-                    "    JOIN suppliers s on p.supplier_id = s.id\n";
+            String query = "SELECT p.id, p.name, p.price, p.category_id, p.supplier_id, p.currency, p.description, p.image_file_name, pc.id as prodID, pc.name, pc.department, pc.description, s.name, s.description FROM products p \n" +
+                    "JOIN product_categories pc on pc.id = p.category_id \n" +
+                    "JOIN suppliers s on p.supplier_id = s.id";
 
             PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
 
@@ -122,7 +122,7 @@ public class ProductDaoJDBC implements ProductDao {
 
             Connection sqlConnection = dataSource.getConnection();
 
-            String query = "SELECT p.id, p.name, p.price, p.category_id, p.supplier_id, p.currency, p.description, p.image_file_name, pc.id, pc.name, pc.department, pc.description, s.name, s.description FROM products p\n" +
+            String query = "SELECT p.id, p.name, p.price, p.category_id, p.supplier_id, p.currency, p.description, p.image_file_name, pc.id as product_category_id, pc.name, pc.department, pc.description, s.name, s.description FROM products p \n" +
                     "    JOIN product_categories pc on pc.id = p.category_id\n" +
                     "    JOIN suppliers s on p.supplier_id = s.id\n" +
                     "    WHERE s.name ILIKE ?;";
@@ -165,7 +165,7 @@ public class ProductDaoJDBC implements ProductDao {
         return null;
     }
 
-    private static List<Product> queryResultToList (ResultSet queryResult) {
+    static List<Product> queryResultToList(ResultSet queryResult) {
         try {
             List<Product> result = new ArrayList<>();
 
@@ -173,6 +173,7 @@ public class ProductDaoJDBC implements ProductDao {
                 Product product = buildProduct(queryResult);
                 result.add(product);
             }
+            System.out.println(result);
             return result;
         }
         catch (SQLException e) {
@@ -182,20 +183,30 @@ public class ProductDaoJDBC implements ProductDao {
     }
 
     private static Product buildProduct(ResultSet queryResult) {
+
+        int categoryIdIndex = 9;
+        int categoryNameIndex = 10;
+        int categoryDepartmentIndex = 11;
+        int categoryDescriptionIndex = 12;
+        int supplierNameIndex = 13;
+        int supplierDescriptionIndex = 14;
+
+
         try {
-            String name = queryResult.getString("p.name");
+            String name = queryResult.getString("name");
             BigDecimal defaultPrice = BigDecimal.valueOf(queryResult.getDouble("price"));
             String currencyString = queryResult.getString("currency");
-            String description = queryResult.getString("p.description");
+            String description = queryResult.getString("description");
             String imageFileName = queryResult.getString("image_file_name");
 
-            String categoryName = queryResult.getString("pc.name");
-            String categoryDescription = queryResult.getString("pc.description");
-            String categoryDepartment = queryResult.getString("department");
-            ProductCategory productCategory = new ProductCategory(categoryName, categoryDepartment, categoryDescription);
+            int categoryId = Integer.parseInt(queryResult.getString(categoryIdIndex));
+            String categoryName = queryResult.getString(categoryNameIndex);
+            String categoryDescription = queryResult.getString(categoryDescriptionIndex);
+            String categoryDepartment = queryResult.getString(categoryDepartmentIndex);
+            ProductCategory productCategory = new ProductCategory(categoryId,categoryName, categoryDepartment, categoryDescription);
 
-            String supplierName = queryResult.getString("s.name");
-            String supplierDescription = queryResult.getString("s.description");
+            String supplierName = queryResult.getString(supplierNameIndex);
+            String supplierDescription = queryResult.getString(supplierDescriptionIndex);
             Supplier supplier = new Supplier(supplierName, supplierDescription);
 
             return new Product(name, defaultPrice, currencyString, description, productCategory, supplier, imageFileName);

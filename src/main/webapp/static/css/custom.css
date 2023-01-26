@@ -143,6 +143,21 @@ label {
             0 0 151px #0fa;
 }
 
+.neonText2 {
+    text-align: center;
+    padding: 20px 0 30px 0;
+    color: #fff;
+    text-shadow:
+            0 0 7px #da5757,
+            0 0 10px #b63030,
+            0 0 21px #ff8a8a,
+            0 0 42px #b71489,
+            0 0 82px #c41626,
+            0 0 92px #a1090d,
+            0 0 102px #9f142a,
+            0 0 151px #ff0000;
+}
+
 .neonBox1 {
     box-shadow:
             0 0 7px #fff,
@@ -150,6 +165,15 @@ label {
             0 0 21px #fff,
             0 0 42px #2db5c7,
             0 0 82px #0ab1c0
+}
+
+.neonBox2 {
+    box-shadow:
+            0 0 7px #cc2525,
+            0 0 10px #d90101,
+            0 0 21px #fa4848,
+            0 0 42px rgba(86, 6, 6, 0.9),
+            0 0 82px #c00a71
 }
 
 .card-dark {
@@ -162,8 +186,14 @@ label {
 .center {
     margin: auto;
     width: 50%;
-    border: 3px solid green;
+    border: 3px solid black;
     padding: 120px 0 120px 0;
     align-items: center;
+}
 
+.registryDiv {
+    text-align: center;
+    background-image: url("/static/img/blood-cover.png");
+    background-size: contain;
+    width: 50%;
 }

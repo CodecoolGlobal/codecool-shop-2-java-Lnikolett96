@@ -44,7 +44,28 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     }
 
 
-    public ProductCategory find(String name){
+    public ProductCategory find(int id){
+        try {
+            Connection sqlConnection = dataSource.getConnection();
+
+            String query = "SELECT id, name, department, description FROM product_categories\n" +
+                    "WHERE id=?;";
+
+            PreparedStatement sqlStatement = sqlConnection.prepareStatement(query);
+            sqlStatement.setInt(1, id);
+
+            ResultSet queryResult = sqlStatement.executeQuery();
+            queryResult.next();
+
+            return buildProductCategory(queryResult);
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public ProductCategory find(String name) {
         try {
             Connection sqlConnection = dataSource.getConnection();
 
@@ -62,6 +83,22 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public void remove(int id) {
+        try {
+            Connection sqlConnection = dataSource.getConnection();
+
+            String query = "DELETE FROM product_categories WHERE id=?;";
+
+            PreparedStatement statement = sqlConnection.prepareStatement(query);
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     ;
@@ -121,11 +158,13 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     private ProductCategory buildProductCategory(ResultSet queryResult) {
         try {
+            String idString = queryResult.getString("id");
+            int id = Integer.parseInt(String.valueOf(idString));
             String name = queryResult.getString("name");
             String department = queryResult.getString("department");
             String description = queryResult.getString("description");
 
-            return new ProductCategory(name, department, description);
+            return new ProductCategory(id,name, department, description);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
