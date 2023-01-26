@@ -71,4 +71,21 @@ public class LoginDaoJDBC implements LoginDao {
         return 0;
     }
 
+    @Override
+    public String verifyPassword(String password) {
+        try {
+            Connection sqlConnection = dataSource.getConnection();
+            String query = "SELECT password FROM users WHERE password = ?";
+
+            PreparedStatement statement = sqlConnection.prepareStatement(query);
+            statement.setString(1, password);
+
+            return statement.executeQuery().getString(4);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+
 }

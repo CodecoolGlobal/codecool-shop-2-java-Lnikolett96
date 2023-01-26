@@ -2,7 +2,9 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.implementation.JDBC.LoginDaoJDBC;
+import com.codecool.shop.model.User;
 import com.codecool.shop.service.LoginService;
+import com.google.gson.Gson;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/login"})
@@ -32,15 +35,20 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        BufferedReader reader = req.getReader();
+        Gson gson = new Gson();
 
-        if (validateEmailAndPassword(email, password)){
-            String username = loginService.getUserName(email, password);
+        User user = gson.fromJson(reader, User.class);
+
+        if (loginService.verifyPassword(user.getPassword())){
+            String username = loginService.getUserName(user.getEmail(), user.getPassword());
+            int userId = loginService.getUserId(user.getEmail(), user.getPassword());
             HttpSession httpSession = req.getSession();
-
+            httpSession.setAttribute("userName", username);
+            httpSession.setAttribute("userId", userId);
+            resp.sendRedirect("localhost:8080/login");
+        } else {
+            resp.setStatus(402);
         }
-    }
-
-    private boolean validateEmailAndPassword(String email, String password) {
-        return loginService.getUserName(email, password) != null;
     }
 }
