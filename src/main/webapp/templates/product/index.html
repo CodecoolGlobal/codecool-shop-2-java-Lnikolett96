@@ -44,12 +44,13 @@
 <button><a href="/registry"> Reg </a> </button>
 <button><a href="/login"> Login </a> </button>
 
-<h1 class="neonText"> Welcome our Creepy Webshop!</h1>
+
+<h1 class="neonText" th:text="${session.isEmpty()} ? 'Welcome our Creepy Webshop!' : 'Welcome ' + ${session.userName} + ' in our Creepy Webshop!'"> Welcome our Creepy Webshop!</h1>
 <p class="neonText"> ... Be carefull what you would buy ...</p>
 
 <div class="category-chooser container">
 
-    <label class="white">Choose by:</label> <br>
+    <label class="white" #session, that gives you d>Choose by:</label> <br>
     <label class="white">category:</label>
     <select id="category-chooser">
         <option value="all">all</option>

@@ -34,7 +34,6 @@ public class ProductController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("category", productCategories.getAll());
         context.setVariable("allProductList", productService.getAllProduct());
-        System.out.println(products.getAll());
         // // Alternative setting of the template context
         // Map<String, Object> params = new HashMap<>();
         // params.put("category", productCategoryDataStore.find(1));
