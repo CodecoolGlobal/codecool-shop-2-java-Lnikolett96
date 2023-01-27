@@ -11,7 +11,8 @@ public class LoginService {
     }
 
     public String getUserName(String email, String password) {
-       return loginDao.getUserName(email, password);
+        System.out.println(loginDao.getUserName(email, password) +"!!!!");
+        return loginDao.getUserName(email, password);
     }
 
     public int getUserId(String email, String password) {
@@ -23,6 +24,6 @@ public class LoginService {
     }
 
     public boolean verifyPassword(String password) {
-        return loginDao.verifyPassword(password) != null;
+        return loginDao.getPassword(password) != null;
     }
 }

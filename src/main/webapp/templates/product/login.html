@@ -28,6 +28,7 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css">
+    <script src="/static/js/login.js" defer></script>
 </head>
 <body>
 <div class="jumbotron text-center main-pic">
@@ -41,7 +42,7 @@
     <br>
     <h1 class="neonText">Login</h1> <br> <br>
 
-    <form style="align-content: center" action="" method="post">
+    <form style="align-content: center" id="form" onsubmit="subbmitLogin">
 
         <label style="text-align: center" class="neonText" for="email"> Your email: </label><br>
         <input style="text-align: center" class="neonBox1" type="text" name="email" id="email" placeholder="Enter email" required> <br>

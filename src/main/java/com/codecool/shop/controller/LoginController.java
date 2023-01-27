@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.StringBufferInputStream;
 
 @WebServlet(urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
@@ -38,7 +39,16 @@ public class LoginController extends HttpServlet {
         BufferedReader reader = req.getReader();
         Gson gson = new Gson();
 
-        User user = gson.fromJson(reader, User.class);
+        StringBuffer buffer = new StringBuffer();
+
+        String line = null;
+
+        while ((line = reader.readLine()) != null) {
+            buffer.append(line);
+        }
+        System.out.println(buffer + "ez");
+
+        User user = gson.fromJson(String.valueOf(buffer), User.class);
 
         if (loginService.verifyPassword(user.getPassword())){
             String username = loginService.getUserName(user.getEmail(), user.getPassword());
@@ -46,9 +56,9 @@ public class LoginController extends HttpServlet {
             HttpSession httpSession = req.getSession();
             httpSession.setAttribute("userName", username);
             httpSession.setAttribute("userId", userId);
-            resp.sendRedirect("localhost:8080/login");
-        } else {
-            resp.setStatus(402);
+            resp.sendRedirect("/");
+//        } else {
+//            resp.setStatus(402);  // tomi you dumb fuck
         }
     }
 }

@@ -9,5 +9,5 @@ public interface LoginDao {
 
     public int getIsAdmin(String email, String password);
 
-    public String verifyPassword(String password);
+    public String getPassword(String password);
 }

@@ -6,6 +6,7 @@ import com.codecool.shop.dao.connection.SQLDataConnection;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LoginDaoJDBC implements LoginDao {
@@ -31,7 +32,11 @@ public class LoginDaoJDBC implements LoginDao {
             statement.setString(1, email);
             statement.setString(2, password);
 
-            return statement.executeQuery().getString(2);
+            ResultSet res = statement.executeQuery();
+            if (res.next()) {
+                return res.getString(1);
+            }
+            return "somthing";
 
         } catch (SQLException e){
             System.out.println(e.getMessage());
@@ -48,7 +53,11 @@ public class LoginDaoJDBC implements LoginDao {
             statement.setString(1, email);
             statement.setString(2, password);
 
-            return statement.executeQuery().getInt(1);
+            ResultSet res = statement.executeQuery();
+            if (res.next()) {
+                return res.getInt(1);
+            }
+            return 0;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -72,7 +81,7 @@ public class LoginDaoJDBC implements LoginDao {
     }
 
     @Override
-    public String verifyPassword(String password) {
+    public String getPassword(String password) {
         try {
             Connection sqlConnection = dataSource.getConnection();
             String query = "SELECT password FROM users WHERE password = ?";
@@ -80,7 +89,12 @@ public class LoginDaoJDBC implements LoginDao {
             PreparedStatement statement = sqlConnection.prepareStatement(query);
             statement.setString(1, password);
 
-            return statement.executeQuery().getString(4);
+            ResultSet res =  statement.executeQuery();
+            if (res.next()) {
+                return res.getString(1);
+            }
+            return "nope";
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

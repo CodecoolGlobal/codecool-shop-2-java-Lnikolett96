@@ -45,7 +45,7 @@
 <button><a href="/login"> Login </a> </button>
 
 
-<h1 class="neonText" th:text="${session.isEmpty()} ? 'Welcome our Creepy Webshop!' : 'Welcome ${#session.getAttribute(userName)} in our Creepy Webshop!'"> Welcome our Creepy Webshop!</h1>
+<h1 class="neonText" th:text="${session.isEmpty()} ? 'Welcome our Creepy Webshop!' : 'Welcome ' + ${session.userName} + ' in our Creepy Webshop!'"> Welcome our Creepy Webshop!</h1>
 <p class="neonText"> ... Be carefull what you would buy ...</p>
 
 <div class="category-chooser container">
